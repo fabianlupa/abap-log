@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>ZALOG</ARBGB>
+    <MASTERLANG>E</MASTERLANG>
+    <STEXT>Messages for ZALOG</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>000</MSGNR>
+     <TEXT>&amp;</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>&amp; &amp;</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>&amp; &amp; &amp;</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>&amp; &amp; &amp; &amp;</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>Logging failed.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>Logging failed: &amp;1</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>Call error.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>007</MSGNR>
+     <TEXT>Call error: &amp;1</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>008</MSGNR>
+     <TEXT>Message type &apos;&amp;1&apos; is unkown or not supported.</TEXT>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>
