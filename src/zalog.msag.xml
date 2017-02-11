@@ -62,6 +62,18 @@
      <MSGNR>008</MSGNR>
      <TEXT>Message type &apos;&amp;1&apos; is unkown or not supported.</TEXT>
     </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>009</MSGNR>
+     <TEXT>Logger is not attached (and cannot be detached).</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>010</MSGNR>
+     <TEXT>Logger is already attached.</TEXT>
+    </T100>
    </T100>
   </asx:values>
  </asx:abap>
