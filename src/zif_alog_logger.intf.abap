@@ -25,16 +25,16 @@ INTERFACE zif_alog_logger PUBLIC.
     "! @parameter iv_text | Message text
     "! @parameter io_type | Type of the message
     "! @raising zcx_alog_logging_failed | Logging failed
-    "! @raising zcx_alog_call_error | io_type cannot be null or is unsupported
+    "! @raising zcx_alog_nullpointer | io_type cannot be null
     entry IMPORTING iv_text TYPE csequence
                     io_type TYPE REF TO zcl_alog_entry_type
           RAISING   zcx_alog_logging_failed
-                    zcx_alog_call_error,
+                    zcx_alog_nullpointer,
     "! Log an exception (as an error)
     "! @parameter ix_ex | The exception to log
     "! @raising zcx_alog_logging_failed | Logging failed
-    "! @raising zcx_alog_call_error | ix_ex cannot be null
+    "! @raising zcx_alog_nullpointer | ix_ex cannot be null
     exception IMPORTING ix_ex TYPE REF TO cx_root
               RAISING   zcx_alog_logging_failed
-                        zcx_alog_call_error.
+                        zcx_alog_nullpointer.
 ENDINTERFACE.
