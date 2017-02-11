@@ -54,10 +54,9 @@ CLASS zcl_alog_entry_type IMPLEMENTATION.
         ro_entry_type = go_warning.
       WHEN OTHERS.
         " Unsupported message type
-        RAISE EXCEPTION TYPE zcx_alog_call_error
+        RAISE EXCEPTION TYPE zcx_alog_unsupported_msgty
           EXPORTING
-            is_textid = zcx_alog_call_error=>gc_msgty_unknown
-            iv_msgty  = iv_msgty.
+            iv_msgty = iv_msgty.
     ENDCASE.
   ENDMETHOD.
 
