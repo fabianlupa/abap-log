@@ -18,7 +18,7 @@ CLASS zcx_alog_logging_failed DEFINITION
       BEGIN OF gc_with_reason,
         msgid TYPE symsgid VALUE 'ZALOG',
         msgno TYPE symsgno VALUE '005',
-        attr1 TYPE scx_attrname VALUE '',
+        attr1 TYPE scx_attrname VALUE 'MV_REASON',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
