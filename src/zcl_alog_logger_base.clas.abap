@@ -66,7 +66,7 @@ CLASS zcl_alog_logger_base IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD zif_alog_logger~exception.
-    entry( iv_text = ix_ex->get_text( ) io_type = zcl_alog_entry_type=>go_debug ).
+    entry( iv_text = ix_ex->get_text( ) io_type = zcl_alog_entry_type=>go_error ).
   ENDMETHOD.
 
   METHOD zif_alog_logger~info.
