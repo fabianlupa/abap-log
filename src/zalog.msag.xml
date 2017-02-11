@@ -74,6 +74,18 @@
      <MSGNR>010</MSGNR>
      <TEXT>Logger is already attached.</TEXT>
     </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>011</MSGNR>
+     <TEXT>Variable cannot be null.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>012</MSGNR>
+     <TEXT>Variable &apos;&amp;1&apos; cannot be null.</TEXT>
+    </T100>
    </T100>
   </asx:values>
  </asx:abap>
