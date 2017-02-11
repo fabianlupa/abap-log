@@ -1,4 +1,7 @@
 "! Logger base class
+"! <p>
+"! Inherit from this class and implement <em>entry_internal</em> for the logging logic.
+"! </p>
 CLASS zcl_alog_logger_base DEFINITION
   PUBLIC
   ABSTRACT
@@ -6,7 +9,7 @@ CLASS zcl_alog_logger_base DEFINITION
 
   PUBLIC SECTION.
     INTERFACES:
-      zif_alog_logger,
+      zif_alog_logger FINAL METHODS entry,
       zif_alog_attachable.
     ALIASES:
       debug FOR zif_alog_logger~debug,
@@ -19,6 +22,18 @@ CLASS zcl_alog_logger_base DEFINITION
       detach FOR zif_alog_attachable~detach.
   PROTECTED SECTION.
     METHODS:
+      "! Internal implementation of <em>zif_alog_logger-&gtentry_msg( )</em> to do the logging
+      "! <p>
+      "! Implement in non abstract subclasses.
+      "! </p>
+      "! @parameter iv_text | Message text
+      "! @parameter io_type | Type of the message
+      "! @raising zcx_alog_logging_failed | Logging failed
+      "! @raising zcx_alog_call_error | io_type cannot be null or is unsupported
+      entry_internal ABSTRACT IMPORTING iv_text TYPE csequence
+                                        io_type TYPE REF TO zcl_alog_entry_type
+                              RAISING   zcx_alog_logging_failed
+                                        zcx_alog_call_error,
       "! Inform attached loggers
       "! @parameter iv_text | Message text
       "! @parameter io_type | Message type
@@ -38,6 +53,7 @@ ENDCLASS.
 CLASS zcl_alog_logger_base IMPLEMENTATION.
   METHOD zif_alog_logger~entry.
     inform_attached_loggers( iv_text = iv_text io_type = io_type ).
+    entry_internal( iv_text = iv_text io_type = io_type ).
   ENDMETHOD.
 
   METHOD zif_alog_logger~debug.
