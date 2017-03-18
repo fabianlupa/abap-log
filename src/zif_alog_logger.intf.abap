@@ -29,12 +29,12 @@ INTERFACE zif_alog_logger PUBLIC.
     entry IMPORTING iv_text TYPE csequence
                     io_type TYPE REF TO zcl_alog_entry_type
           RAISING   zcx_alog_logging_failed
-                    zcx_alog_nullpointer,
+                    zcx_alog_argument_null,
     "! Log an exception (as an error)
     "! @parameter ix_ex | The exception to log
     "! @raising zcx_alog_logging_failed | Logging failed
     "! @raising zcx_alog_nullpointer | ix_ex cannot be null
     exception IMPORTING ix_ex TYPE REF TO cx_root
               RAISING   zcx_alog_logging_failed
-                        zcx_alog_nullpointer.
+                        zcx_alog_argument_null.
 ENDINTERFACE.

@@ -6,7 +6,7 @@ go_logger->info( `Hello world.` ).
 go_logger->warning( `Hello darkness my old friend.` ).
 go_logger->error( `I've come to talk with you again.` ).
 go_logger->debug( `BEEP BOOP` ).
-go_logger->exception( NEW zcx_alog_nullpointer( ) ).
+go_logger->exception( NEW zcx_alog_argument_null( ) ).
 
 MESSAGE s000(zalog) WITH 'Hello from message class' INTO DATA(lv_dummy) ##NEEDED.
 go_logger->info_msg( ).

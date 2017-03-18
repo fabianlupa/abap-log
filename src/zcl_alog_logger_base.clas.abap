@@ -52,7 +52,9 @@ ENDCLASS.
 
 CLASS zcl_alog_logger_base IMPLEMENTATION.
   METHOD zif_alog_logger~entry.
-    zcx_alog_nullpointer=>raise_if_nullpointer( io_object = io_type iv_variable_name = 'IO_TYPE' ).
+    zcx_alog_argument_null=>raise_if_nullpointer( io_object        = io_type
+                                                  iv_variable_name = 'IO_TYPE' ).
+
     inform_attached_loggers( iv_text = iv_text io_type = io_type ).
     entry_internal( iv_text = iv_text io_type = io_type ).
   ENDMETHOD.
@@ -78,8 +80,8 @@ CLASS zcl_alog_logger_base IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD zif_alog_attachable~attach.
-    zcx_alog_nullpointer=>raise_if_nullpointer( io_object        = ii_logger
-                                                iv_variable_name = 'II_LOGGER' ).
+    zcx_alog_argument_null=>raise_if_nullpointer( io_object        = ii_logger
+                                                  iv_variable_name = 'II_LOGGER' ).
     TRY.
         INSERT ii_logger INTO TABLE mt_attached_loggers.
         ASSERT sy-subrc = 0.
@@ -91,8 +93,8 @@ CLASS zcl_alog_logger_base IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD zif_alog_attachable~detach.
-    zcx_alog_nullpointer=>raise_if_nullpointer( io_object        = ii_logger
-                                                iv_variable_name = 'II_LOGGER' ).
+    zcx_alog_argument_null=>raise_if_nullpointer( io_object        = ii_logger
+                                                  iv_variable_name = 'II_LOGGER' ).
     DELETE TABLE mt_attached_loggers WITH TABLE KEY table_line = ii_logger.
     IF sy-subrc <> 0.
       RAISE EXCEPTION TYPE zcx_alog_not_attached.

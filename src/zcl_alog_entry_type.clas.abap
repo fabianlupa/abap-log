@@ -10,10 +10,10 @@ CLASS zcl_alog_entry_type DEFINITION
       "! Get an entry type instance from message type
       "! @parameter iv_msgty | Message type
       "! @parameter ro_entry_type | Entry type instance
-      "! @raising zcx_alog_call_error | Unknown message type
+      "! @raising zcx_alog_unsupported_msgty | Unsupported message type
       from_msgty IMPORTING iv_msgty             TYPE syst_msgty
                  RETURNING VALUE(ro_entry_type) TYPE REF TO zcl_alog_entry_type
-                 RAISING   zcx_alog_call_error.
+                 RAISING   zcx_alog_unsupported_msgty.
     CLASS-DATA:
       go_info    TYPE REF TO zcl_alog_entry_type READ-ONLY,
       go_warning TYPE REF TO zcl_alog_entry_type READ-ONLY,
