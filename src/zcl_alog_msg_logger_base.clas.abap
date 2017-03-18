@@ -42,8 +42,8 @@ CLASS zcl_alog_msg_logger_base DEFINITION
                                             zcx_alog_unsupported_msgty,
       "! Internal implementation of <em>zif_alog_msg_logger-&gtentry_msg( )</em> to do the logging
       "! <p>
-      "! Default implementation redirects the message to <em>entry( )</em>, overwrite in subclasses to
-      "! provide message class specific logic.
+      "! Default implementation redirects the message to <em>entry( )</em>, overwrite in subclasses
+      "! to provide message class specific logic.
       "! </p>
       "! @parameter iv_msgid | Message id
       "! @parameter iv_msgno | Message number
