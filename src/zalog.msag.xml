@@ -78,13 +78,37 @@
      <SPRSL>E</SPRSL>
      <ARBGB>ZALOG</ARBGB>
      <MSGNR>011</MSGNR>
-     <TEXT>Variable cannot be null.</TEXT>
+     <TEXT>Argument cannot be null.</TEXT>
     </T100>
     <T100>
      <SPRSL>E</SPRSL>
      <ARBGB>ZALOG</ARBGB>
      <MSGNR>012</MSGNR>
-     <TEXT>Variable &apos;&amp;1&apos; cannot be null.</TEXT>
+     <TEXT>Argument &apos;&amp;1&apos; cannot be null.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>013</MSGNR>
+     <TEXT>Illegal argument.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>014</MSGNR>
+     <TEXT>Illegal argument &apos;&amp;1&apos;.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>015</MSGNR>
+     <TEXT>Illegal argument &apos;&amp;1&apos;: &amp;2.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>016</MSGNR>
+     <TEXT>Illegal argument: &amp;1</TEXT>
     </T100>
    </T100>
   </asx:values>
