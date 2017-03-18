@@ -55,9 +55,7 @@ ENDCLASS.
 
 
 
-CLASS ZCX_ALOG_ILLEGAL_ARGUMENT IMPLEMENTATION.
-
-
+CLASS zcx_alog_illegal_argument IMPLEMENTATION.
   METHOD constructor ##ADT_SUPPRESS_GENERATION.
     super->constructor( ix_previous = ix_previous
                         iv_reason   = iv_reason
