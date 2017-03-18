@@ -44,7 +44,8 @@ CLASS zcx_alog_illegal_argument DEFINITION
       constructor IMPORTING ix_previous LIKE previous OPTIONAL
                             iv_reason   TYPE csequence OPTIONAL
                             iv_value    TYPE csequence OPTIONAL
-                            iv_name     TYPE csequence OPTIONAL.
+                            iv_name     TYPE csequence OPTIONAL
+                              PREFERRED PARAMETER iv_reason.
     DATA:
       mv_value TYPE string READ-ONLY,
       mv_name  TYPE string READ-ONLY.
@@ -54,9 +55,12 @@ ENDCLASS.
 
 
 
-CLASS zcx_alog_illegal_argument IMPLEMENTATION.
+CLASS ZCX_ALOG_ILLEGAL_ARGUMENT IMPLEMENTATION.
+
+
   METHOD constructor ##ADT_SUPPRESS_GENERATION.
     super->constructor( ix_previous = ix_previous
+                        iv_reason   = iv_reason
                         is_textid   = COND #( WHEN iv_reason IS SUPPLIED
                                                    AND iv_name IS SUPPLIED
                                                    THEN gc_name_and_reason
