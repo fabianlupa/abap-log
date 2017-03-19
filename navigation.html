@@ -1,0 +1,22 @@
+---
+layout: empty
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="htmldesign/stylesheet.css" type="text/css">
+  </head>
+  <body>
+    {% for collection in site.collections %}
+    {% unless collection.label == 'posts' %}
+    <h2>{{collection.label}}</h2>
+    <ul>
+      {% assign files = collection.files | sort: 'basename' %}
+      {% for file in files %}
+      <li><a href="./{{ file.path | remove_first:'/_' }}" target="content">{{ file.basename | upcase }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endunless %}
+    {% endfor %}
+  </body>
+</html>

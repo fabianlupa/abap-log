@@ -1,0 +1,5 @@
+collections:
+  abapdoc:
+    output: true
+
+markdown: kramdown
