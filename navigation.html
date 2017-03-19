@@ -13,7 +13,7 @@ layout: empty
     <ul>
       {% assign files = collection.files | sort: 'basename' %}
       {% for file in files %}
-      <li><a href="./{{ file.path | remove_first:'/_' }}" target="content">{{ file.basename | upcase }}</a></li>
+      <li><a href="./{{ file.path | remove_first:'_' }}" target="content">{{ file.basename | upcase }}</a></li>
       {% endfor %}
     </ul>
     {% endunless %}
