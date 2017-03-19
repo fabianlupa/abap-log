@@ -3,5 +3,3 @@ collections:
     output: true
 
 markdown: kramdown
-
-theme: jekyll-theme-slate
