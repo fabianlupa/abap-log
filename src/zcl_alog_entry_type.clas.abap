@@ -20,15 +20,17 @@ CLASS zcl_alog_entry_type DEFINITION
       go_error   TYPE REF TO zcl_alog_entry_type READ-ONLY,
       go_debug   TYPE REF TO zcl_alog_entry_type READ-ONLY.
     DATA:
-      mv_message_type TYPE syst_msgty READ-ONLY,
-      mv_description  TYPE string READ-ONLY,
-      mv_icon         TYPE icon_d READ-ONLY.
+      mv_message_type  TYPE syst_msgty READ-ONLY,
+      mv_description   TYPE string READ-ONLY,
+      mv_icon          TYPE icon_d READ-ONLY,
+      mv_bal_probclass TYPE balprobcl READ-ONLY.
   PROTECTED SECTION.
   PRIVATE SECTION.
     METHODS:
-      constructor IMPORTING iv_message_type TYPE syst_msgty
-                            iv_description  TYPE csequence
-                            iv_icon         TYPE icon_d.
+      constructor IMPORTING iv_message_type  TYPE syst_msgty
+                            iv_description   TYPE csequence
+                            iv_icon          TYPE icon_d
+                            iv_bal_probclass TYPE balprobcl.
 ENDCLASS.
 
 
@@ -36,15 +38,16 @@ ENDCLASS.
 CLASS zcl_alog_entry_type IMPLEMENTATION.
   METHOD class_constructor.
     DEFINE init.
-      &1 = NEW #( iv_message_type = &2
-                  iv_description  = &3
-                  iv_icon         = &4 ).
+      &1 = NEW #( iv_message_type  = &2
+                  iv_description   = &3
+                  iv_icon          = &4
+                  iv_bal_probclass = &5 ).
     END-OF-DEFINITION.
 
-    init: go_info    'I' 'INFO'    icon_green_light,
-          go_warning 'W' 'WARNING' icon_yellow_light,
-          go_error   'E' 'ERROR'   icon_red_light,
-          go_debug   'I' 'DEBUG'   icon_information.
+    init: go_info    'I' 'INFO'    icon_green_light  '3',
+          go_warning 'W' 'WARNING' icon_yellow_light '2',
+          go_error   'E' 'ERROR'   icon_red_light    '1',
+          go_debug   'I' 'DEBUG'   icon_information  '4'.
   ENDMETHOD.
 
 
@@ -52,6 +55,7 @@ CLASS zcl_alog_entry_type IMPLEMENTATION.
     mv_message_type = iv_message_type.
     mv_description = iv_description.
     mv_icon = iv_icon.
+    mv_bal_probclass = iv_bal_probclass.
   ENDMETHOD.
 
 

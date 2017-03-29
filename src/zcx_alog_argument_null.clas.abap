@@ -27,7 +27,7 @@ CLASS zcx_alog_argument_null DEFINITION
       "! Raise nullpointer exception if object reference is null
       "! @parameter io_object | Object reference to check
       "! @parameter iv_variable_name | Name of the variable
-      "! @raising zcx_alog_nullpointer | io_object is null
+      "! @raising zcx_alog_argument_null | io_object is null
       raise_if_nullpointer IMPORTING io_object        TYPE REF TO object
                                      iv_variable_name TYPE csequence OPTIONAL
                            RAISING   zcx_alog_argument_null.

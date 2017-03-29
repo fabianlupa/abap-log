@@ -13,7 +13,9 @@ ENDCLASS.
 
 
 
-CLASS zcl_alog_message_logger IMPLEMENTATION.
+CLASS ZCL_ALOG_MESSAGE_LOGGER IMPLEMENTATION.
+
+
   METHOD entry_internal.
     " Message type must be I or S, otherwise the type will be implicity converted to E and program
     " execution is halted. See for details:
