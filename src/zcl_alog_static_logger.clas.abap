@@ -68,12 +68,12 @@ CLASS zcl_alog_static_logger DEFINITION
       "! @raising zcx_alog_logging_failed | Logging failed
       "! @raising zcx_alog_unsupported_operation | Configured logger does not support message
       "!                                           classes
-      info_msg IMPORTING iv_msgid TYPE syst_msgid DEFAULT sy-msgid
-                         iv_msgno TYPE syst_msgno DEFAULT sy-msgno
-                         iv_msgv1 TYPE syst_msgv DEFAULT sy-msgv1
-                         iv_msgv2 TYPE syst_msgv DEFAULT sy-msgv2
-                         iv_msgv3 TYPE syst_msgv DEFAULT sy-msgv3
-                         iv_msgv4 TYPE syst_msgv DEFAULT sy-msgv4
+      info_msg IMPORTING VALUE(iv_msgid) TYPE syst_msgid DEFAULT sy-msgid
+                         VALUE(iv_msgno) TYPE syst_msgno DEFAULT sy-msgno
+                         VALUE(iv_msgv1) TYPE syst_msgv DEFAULT sy-msgv1
+                         VALUE(iv_msgv2) TYPE syst_msgv DEFAULT sy-msgv2
+                         VALUE(iv_msgv3) TYPE syst_msgv DEFAULT sy-msgv3
+                         VALUE(iv_msgv4) TYPE syst_msgv DEFAULT sy-msgv4
                RAISING   zcx_alog_logging_failed
                          zcx_alog_unsupported_operation,
       "! Log a warning using message classes
@@ -86,12 +86,12 @@ CLASS zcl_alog_static_logger DEFINITION
       "! @raising zcx_alog_logging_failed | Logging failed
       "! @raising zcx_alog_unsupported_operation | Configured logger does not support message
       "!                                           classes
-      warning_msg IMPORTING iv_msgid TYPE syst_msgid DEFAULT sy-msgid
-                            iv_msgno TYPE syst_msgno DEFAULT sy-msgno
-                            iv_msgv1 TYPE syst_msgv DEFAULT sy-msgv1
-                            iv_msgv2 TYPE syst_msgv DEFAULT sy-msgv2
-                            iv_msgv3 TYPE syst_msgv DEFAULT sy-msgv3
-                            iv_msgv4 TYPE syst_msgv DEFAULT sy-msgv4
+      warning_msg IMPORTING VALUE(iv_msgid) TYPE syst_msgid DEFAULT sy-msgid
+                            VALUE(iv_msgno) TYPE syst_msgno DEFAULT sy-msgno
+                            VALUE(iv_msgv1) TYPE syst_msgv DEFAULT sy-msgv1
+                            VALUE(iv_msgv2) TYPE syst_msgv DEFAULT sy-msgv2
+                            VALUE(iv_msgv3) TYPE syst_msgv DEFAULT sy-msgv3
+                            VALUE(iv_msgv4) TYPE syst_msgv DEFAULT sy-msgv4
                   RAISING   zcx_alog_logging_failed
                             zcx_alog_unsupported_operation,
       "! Log an error using message classes
@@ -104,12 +104,12 @@ CLASS zcl_alog_static_logger DEFINITION
       "! @raising zcx_alog_logging_failed | Logging failed
       "! @raising zcx_alog_unsupported_operation | Configured logger does not support message
       "!                                           classes
-      error_msg IMPORTING iv_msgid TYPE syst_msgid DEFAULT sy-msgid
-                          iv_msgno TYPE syst_msgno DEFAULT sy-msgno
-                          iv_msgv1 TYPE syst_msgv DEFAULT sy-msgv1
-                          iv_msgv2 TYPE syst_msgv DEFAULT sy-msgv2
-                          iv_msgv3 TYPE syst_msgv DEFAULT sy-msgv3
-                          iv_msgv4 TYPE syst_msgv DEFAULT sy-msgv4
+      error_msg IMPORTING VALUE(iv_msgid) TYPE syst_msgid DEFAULT sy-msgid
+                          VALUE(iv_msgno) TYPE syst_msgno DEFAULT sy-msgno
+                          VALUE(iv_msgv1) TYPE syst_msgv DEFAULT sy-msgv1
+                          VALUE(iv_msgv2) TYPE syst_msgv DEFAULT sy-msgv2
+                          VALUE(iv_msgv3) TYPE syst_msgv DEFAULT sy-msgv3
+                          VALUE(iv_msgv4) TYPE syst_msgv DEFAULT sy-msgv4
                 RAISING   zcx_alog_logging_failed
                           zcx_alog_unsupported_operation,
       "! Log a debug message using message classes
@@ -122,12 +122,12 @@ CLASS zcl_alog_static_logger DEFINITION
       "! @raising zcx_alog_logging_failed | Logging failed
       "! @raising zcx_alog_unsupported_operation | Configured logger does not support message
       "!                                           classes
-      debug_msg IMPORTING iv_msgid TYPE syst_msgid DEFAULT sy-msgid
-                          iv_msgno TYPE syst_msgno DEFAULT sy-msgno
-                          iv_msgv1 TYPE syst_msgv DEFAULT sy-msgv1
-                          iv_msgv2 TYPE syst_msgv DEFAULT sy-msgv2
-                          iv_msgv3 TYPE syst_msgv DEFAULT sy-msgv3
-                          iv_msgv4 TYPE syst_msgv DEFAULT sy-msgv4
+      debug_msg IMPORTING VALUE(iv_msgid) TYPE syst_msgid DEFAULT sy-msgid
+                          VALUE(iv_msgno) TYPE syst_msgno DEFAULT sy-msgno
+                          VALUE(iv_msgv1) TYPE syst_msgv DEFAULT sy-msgv1
+                          VALUE(iv_msgv2) TYPE syst_msgv DEFAULT sy-msgv2
+                          VALUE(iv_msgv3) TYPE syst_msgv DEFAULT sy-msgv3
+                          VALUE(iv_msgv4) TYPE syst_msgv DEFAULT sy-msgv4
                 RAISING   zcx_alog_logging_failed
                           zcx_alog_unsupported_operation,
       "! Log a message of the specified type using message classes
@@ -142,13 +142,13 @@ CLASS zcl_alog_static_logger DEFINITION
       "! @raising zcx_alog_unsupported_msgty | Message type unsupported
       "! @raising zcx_alog_unsupported_operation | Configured logger does not support message
       "!                                           classes
-      entry_msg IMPORTING iv_msgid TYPE syst_msgid DEFAULT sy-msgid
-                          iv_msgno TYPE syst_msgno DEFAULT sy-msgno
-                          iv_msgty TYPE syst_msgty DEFAULT sy-msgty
-                          iv_msgv1 TYPE syst_msgv DEFAULT sy-msgv1
-                          iv_msgv2 TYPE syst_msgv DEFAULT sy-msgv2
-                          iv_msgv3 TYPE syst_msgv DEFAULT sy-msgv3
-                          iv_msgv4 TYPE syst_msgv DEFAULT sy-msgv4
+      entry_msg IMPORTING VALUE(iv_msgid) TYPE syst_msgid DEFAULT sy-msgid
+                          VALUE(iv_msgno) TYPE syst_msgno DEFAULT sy-msgno
+                          VALUE(iv_msgty) TYPE syst_msgty DEFAULT sy-msgty
+                          VALUE(iv_msgv1) TYPE syst_msgv DEFAULT sy-msgv1
+                          VALUE(iv_msgv2) TYPE syst_msgv DEFAULT sy-msgv2
+                          VALUE(iv_msgv3) TYPE syst_msgv DEFAULT sy-msgv3
+                          VALUE(iv_msgv4) TYPE syst_msgv DEFAULT sy-msgv4
                 RAISING   zcx_alog_logging_failed
                           zcx_alog_unsupported_msgty
                           zcx_alog_unsupported_operation.
