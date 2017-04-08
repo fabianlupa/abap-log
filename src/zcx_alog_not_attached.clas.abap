@@ -1,7 +1,7 @@
 "! Logger not attached exception
 CLASS zcx_alog_not_attached DEFINITION
   PUBLIC
-  INHERITING FROM zcx_alog_call_error
+  INHERITING FROM cx_dynamic_check
   FINAL
   CREATE PUBLIC.
 
@@ -15,6 +15,8 @@ CLASS zcx_alog_not_attached DEFINITION
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
       END OF gc_not_attached.
+    INTERFACES:
+      if_t100_message.
     METHODS:
       "! @parameter ix_previous | Previous exception
       constructor IMPORTING ix_previous  LIKE previous OPTIONAL.
@@ -26,7 +28,9 @@ ENDCLASS.
 
 CLASS zcx_alog_not_attached IMPLEMENTATION.
   METHOD constructor ##ADT_SUPPRESS_GENERATION.
-    super->constructor( ix_previous = ix_previous
-                        is_textid   = gc_not_attached ).
+    super->constructor( previous = ix_previous ).
+
+    CLEAR me->textid.
+    if_t100_message~t100key = gc_not_attached.
   ENDMETHOD.
 ENDCLASS.

@@ -12,7 +12,7 @@ CLASS zcl_alog_bal_logger DEFINITION
       "! @parameter iv_object | BAL object
       "! @parameter iv_subobject | BAL suboject
       "! @parameter iv_ext_id | External id for the logs
-      "! @raising zcx_alog_illegal_argument |
+      "! @raising zcx_alog_illegal_argument | Object or subobject do not exist
       constructor IMPORTING iv_object    TYPE balobj_d OPTIONAL
                             iv_subobject TYPE balsubobj OPTIONAL
                             iv_ext_id    TYPE balnrext OPTIONAL
@@ -24,24 +24,24 @@ CLASS zcl_alog_bal_logger DEFINITION
       "! </p>
       "! @parameter iv_in_update_task | Use update task for saving
       "! @parameter iv_in_secondary_conn | Use secondary database connection
-      "! @raising zcx_alog_bal_error |
+      "! @raising zcx_alog_bal_error | BAL error
       save IMPORTING iv_in_update_task    TYPE abap_bool DEFAULT abap_false
                      iv_in_secondary_conn TYPE abap_bool DEFAULT abap_true
            RAISING   zcx_alog_bal_error,
       "! Show log entries
       "! @parameter is_profile | Display profile
       "! @parameter iv_amodal | Amodal dialog
-      "! @raising zcx_alog_bal_error |
+      "! @raising zcx_alog_bal_error | BAL error
       show_log_entries IMPORTING is_profile TYPE bal_s_prof OPTIONAL
                                  iv_amodal  TYPE abap_bool OPTIONAL
                        RAISING   zcx_alog_bal_error,
       "! Get docking container instance
       "! @parameter ro_container | Docking container
-      "! @raising zcx_alog_bal_error |
+      "! @raising zcx_alog_bal_error | BAL error
       get_docking_container RETURNING VALUE(ro_container) TYPE REF TO cl_gui_docking_container
                             RAISING   zcx_alog_bal_error,
       "! Prepare context for the next entry
-      "! @parameter is_context |
+      "! @parameter is_context | Context
       prepare_context IMPORTING is_context TYPE bal_s_cont,
       "! Get the log handle of this logger instance
       "! @parameter rv_handle | Log handle
@@ -78,12 +78,12 @@ CLASS zcl_alog_bal_logger IMPLEMENTATION.
         OTHERS                  = 2.
 
     IF sy-subrc <> 0.
-      MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno
-              WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4
-              INTO DATA(lv_msg_text).
+      DATA(lx_ex) = NEW zcx_alog_bal_error( ).
       RAISE EXCEPTION TYPE zcx_alog_illegal_argument
         EXPORTING
-          iv_reason = lv_msg_text.
+          ix_previous = lx_ex
+          iv_reason   = lx_ex->get_text( )
+          iv_name     = 'IV_OBJECT/IV_SUBOBJECT'.
     ENDIF.
   ENDMETHOD.
 

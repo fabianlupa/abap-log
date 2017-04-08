@@ -1,7 +1,7 @@
 "! Nullpointer exception
 CLASS zcx_alog_argument_null DEFINITION
   PUBLIC
-  INHERITING FROM zcx_alog_call_error
+  INHERITING FROM zcx_alog_illegal_argument
   FINAL
   CREATE PUBLIC.
 
@@ -46,11 +46,13 @@ ENDCLASS.
 
 CLASS zcx_alog_argument_null IMPLEMENTATION.
   METHOD constructor ##ADT_SUPPRESS_GENERATION.
-    super->constructor( ix_previous = ix_previous
-                        is_textid   = COND #( WHEN iv_variable_name IS INITIAL
-                                              THEN gc_nullpointer
-                                              ELSE gc_nullpointer_with_name ) ).
+    super->constructor( ix_previous = ix_previous ).
+
     mv_variable_name = iv_variable_name.
+
+    if_t100_message~t100key = COND #( WHEN iv_variable_name IS INITIAL
+                                      THEN gc_nullpointer
+                                      ELSE gc_nullpointer_with_name ).
   ENDMETHOD.
 
   METHOD raise_if_nullpointer.

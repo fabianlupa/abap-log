@@ -48,10 +48,10 @@ CLASS lcl_test IMPLEMENTATION.
     " This is the reason for RISK LEVEL CRITICAL
 
     INSERT balobj FROM gs_bal_obj_entry.
-    ASSERT sy-subrc = 0.
+*    ASSERT sy-subrc = 0.
 
     INSERT balsub FROM gs_bal_subobj_entry.
-    ASSERT sy-subrc = 0.
+*    ASSERT sy-subrc = 0.
 
     COMMIT WORK AND WAIT.
   ENDMETHOD.

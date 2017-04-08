@@ -29,20 +29,24 @@ CLASS zcl_alog_logger_base DEFINITION
       "! @parameter iv_text | Message text
       "! @parameter io_type | Type of the message
       "! @raising zcx_alog_logging_failed | Logging failed
-      "! @raising zcx_alog_call_error | io_type cannot be null or is unsupported
+      "! @raising zcx_alog_unsupported_msgty | Message type unsupported
+      "! @raising zcx_alog_argument_null | io_type cannot be null
       entry_internal ABSTRACT IMPORTING iv_text TYPE csequence
                                         io_type TYPE REF TO zcl_alog_entry_type
                               RAISING   zcx_alog_logging_failed
-                                        zcx_alog_call_error,
+                                        zcx_alog_unsupported_msgty
+                                        zcx_alog_argument_null,
       "! Inform attached loggers
       "! @parameter iv_text | Message text
       "! @parameter io_type | Message type
       "! @raising zcx_alog_logging_failed | Logging failed
-      "! @raising zcx_alog_call_error | io_type cannot be null or is unsupported
+      "! @raising zcx_alog_unsupported_msgty |
+      "! @raising zcx_alog_argument_null |
       inform_attached_loggers IMPORTING iv_text TYPE csequence
                                         io_type TYPE REF TO zcl_alog_entry_type
                               RAISING   zcx_alog_logging_failed
-                                        zcx_alog_call_error.
+                                        zcx_alog_unsupported_msgty
+                                        zcx_alog_argument_null.
     DATA:
       mt_attached_loggers TYPE HASHED TABLE OF REF TO zif_alog_logger WITH UNIQUE KEY table_line.
   PRIVATE SECTION.

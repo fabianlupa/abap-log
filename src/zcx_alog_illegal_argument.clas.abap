@@ -1,8 +1,7 @@
 "! Illegal argument exception
 CLASS zcx_alog_illegal_argument DEFINITION
   PUBLIC
-  INHERITING FROM zcx_alog_call_error
-  FINAL
+  INHERITING FROM cx_dynamic_check
   CREATE PUBLIC.
 
   PUBLIC SECTION.
@@ -39,16 +38,21 @@ CLASS zcx_alog_illegal_argument DEFINITION
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
       END OF gc_reason.
+    INTERFACES:
+      if_t100_message.
     METHODS:
       "! @parameter ix_previous | Previous exception
+      "! @parameter iv_reason | Reason
+      "! @parameter iv_value | Value
+      "! @parameter iv_name | Name
       constructor IMPORTING ix_previous LIKE previous OPTIONAL
                             iv_reason   TYPE csequence OPTIONAL
                             iv_value    TYPE csequence OPTIONAL
-                            iv_name     TYPE csequence OPTIONAL
-                              PREFERRED PARAMETER iv_reason.
+                            iv_name     TYPE csequence OPTIONAL.
     DATA:
-      mv_value TYPE string READ-ONLY,
-      mv_name  TYPE string READ-ONLY.
+      mv_value  TYPE string READ-ONLY,
+      mv_name   TYPE string READ-ONLY,
+      mv_reason TYPE string READ-ONLY.
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.
@@ -57,15 +61,19 @@ ENDCLASS.
 
 CLASS zcx_alog_illegal_argument IMPLEMENTATION.
   METHOD constructor ##ADT_SUPPRESS_GENERATION.
-    super->constructor( ix_previous = ix_previous
-                        iv_reason   = iv_reason
-                        is_textid   = COND #( WHEN iv_reason IS SUPPLIED
-                                                   AND iv_name IS SUPPLIED
-                                                   THEN gc_name_and_reason
-                                              WHEN iv_reason IS SUPPLIED
-                                                   THEN gc_reason
-                                              ELSE gc_illegal_argument ) ).
-    mv_value = iv_value.
+    super->constructor( previous = ix_previous ).
+
+    mv_reason = iv_reason.
     mv_name = iv_name.
+    mv_value = iv_value.
+
+    CLEAR me->textid.
+    if_t100_message~t100key = COND #( WHEN iv_reason IS NOT INITIAL AND iv_name IS NOT INITIAL
+                                      THEN gc_name_and_reason
+                                      WHEN iv_reason IS NOT INITIAL
+                                      THEN gc_reason
+                                      WHEN iv_name IS NOT INITIAL
+                                      THEN gc_name
+                                      ELSE gc_illegal_argument ).
   ENDMETHOD.
 ENDCLASS.

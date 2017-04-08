@@ -1,10 +1,12 @@
 "! BAL exception
 CLASS zcx_alog_bal_error DEFINITION
   PUBLIC
-  INHERITING FROM zcx_alog_call_error
+  INHERITING FROM cx_dynamic_check
   CREATE PUBLIC.
 
   PUBLIC SECTION.
+    INTERFACES:
+      if_t100_message.
     METHODS:
       "! @parameter iv_msgid | Message id
       "! @parameter iv_msgno | Message number
@@ -31,15 +33,19 @@ ENDCLASS.
 
 CLASS zcx_alog_bal_error IMPLEMENTATION.
   METHOD constructor ##ADT_SUPPRESS_GENERATION.
-    super->constructor( is_textid = VALUE #( msgid = iv_msgid
-                                             msgno = iv_msgno
-                                             attr1 = 'MV_ATTR1'
-                                             attr2 = 'MV_ATTR2'
-                                             attr3 = 'MV_ATTR3'
-                                             attr4 = 'MV_ATTR4' ) ).
+    super->constructor( ).
+
     mv_attr1 = iv_msgv1.
     mv_attr2 = iv_msgv2.
     mv_attr3 = iv_msgv3.
     mv_attr4 = iv_msgv4.
+
+    CLEAR textid.
+    if_t100_message~t100key = VALUE #( msgid = iv_msgid
+                                       msgno = iv_msgno
+                                       attr1 = 'MV_ATTR1'
+                                       attr2 = 'MV_ATTR2'
+                                       attr3 = 'MV_ATTR3'
+                                       attr4 = 'MV_ATTR4' ).
   ENDMETHOD.
 ENDCLASS.
