@@ -8,7 +8,7 @@ go_logger->error( `I've come to talk with you again.` ).
 go_logger->debug( `BEEP BOOP` ).
 go_logger->exception( NEW zcx_alog_argument_null( ) ).
 
-MESSAGE s000(zalog) WITH 'Hello from message class' INTO DATA(lv_dummy) ##NEEDED.
+MESSAGE s000(zalog) WITH 'Hello from message class' INTO DATA(gv_dummy) ##NEEDED.
 go_logger->info_msg( ).
 
 go_logger->warning_msg(
