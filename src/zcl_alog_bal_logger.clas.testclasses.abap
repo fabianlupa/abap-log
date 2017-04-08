@@ -80,8 +80,6 @@ CLASS lcl_test IMPLEMENTATION.
   METHOD test_entry.
     DATA: lt_test TYPE gty_test_tab.
 
-    DATA(lo_type_rnd) = cl_abap_random_int=>create( min = 1 max = 4 ).
-
     DO 400 TIMES.
       APPEND VALUE #( LET type = ztcl_alog_test_utl=>get_random_log_type( ) IN
                       text  = ztcl_alog_test_utl=>get_random_log_text( )
@@ -133,7 +131,7 @@ CLASS lcl_test IMPLEMENTATION.
         i_log_handle  = mo_logger->get_log_handle( )
       EXCEPTIONS
         log_not_found = 1
-        OTHERS        = 2.
+        OTHERS        = 2 ##FM_SUBRC_OK.
     cl_abap_unit_assert=>assert_subrc( msg = 'Log not found' ).
 
     " Load log from database
@@ -144,7 +142,7 @@ CLASS lcl_test IMPLEMENTATION.
         no_logs_specified  = 1
         log_not_found      = 2
         log_already_loaded = 3
-        OTHERS             = 4.
+        OTHERS             = 4 ##FM_SUBRC_OK.
     cl_abap_unit_assert=>assert_subrc( msg = 'Loading log from db failed' ).
 
     " Retrieve log from memory
@@ -168,7 +166,7 @@ CLASS lcl_test IMPLEMENTATION.
         et_msg        = rt_entries
       EXCEPTIONS
         log_not_found = 1
-        OTHERS        = 2.
+        OTHERS        = 2 ##FM_SUBRC_OK.
 
     cl_abap_unit_assert=>assert_subrc( msg = 'Log not found' ).
   ENDMETHOD.

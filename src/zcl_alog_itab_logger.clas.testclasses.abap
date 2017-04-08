@@ -34,8 +34,6 @@ CLASS lcl_test IMPLEMENTATION.
            lty_test_tab TYPE STANDARD TABLE OF lty_test WITH DEFAULT KEY.
     DATA: lt_test TYPE lty_test_tab.
 
-    DATA(lo_type_rnd) = cl_abap_random_int=>create( min = 1 max = 4 ).
-
     DO 400 TIMES.
       APPEND VALUE #( LET type = ztcl_alog_test_utl=>get_random_log_type( ) IN
                       text = ztcl_alog_test_utl=>get_random_log_text( )
