@@ -48,7 +48,8 @@ CLASS zcx_alog_illegal_argument DEFINITION
       constructor IMPORTING ix_previous LIKE previous OPTIONAL
                             iv_reason   TYPE csequence OPTIONAL
                             iv_value    TYPE csequence OPTIONAL
-                            iv_name     TYPE csequence OPTIONAL.
+                            iv_name     TYPE csequence OPTIONAL
+                              PREFERRED PARAMETER iv_reason.
     DATA:
       mv_value  TYPE string READ-ONLY,
       mv_name   TYPE string READ-ONLY,
