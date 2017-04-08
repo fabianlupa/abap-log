@@ -3,16 +3,16 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <VSEOCLASS>
-    <CLSNAME>ZCX_ALOG_CALL_ERROR</CLSNAME>
+    <CLSNAME>ZCL_ALOG_BAL_LOGGER</CLSNAME>
     <VERSION>1</VERSION>
     <LANGU>E</LANGU>
-    <DESCRIPT>Call error exception</DESCRIPT>
-    <CATEGORY>40</CATEGORY>
+    <DESCRIPT>Application log logger</DESCRIPT>
     <EXPOSURE>2</EXPOSURE>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>
     <UNICODE>X</UNICODE>
+    <WITH_UNIT_TESTS>X</WITH_UNIT_TESTS>
    </VSEOCLASS>
    <TPOOL/>
   </asx:values>

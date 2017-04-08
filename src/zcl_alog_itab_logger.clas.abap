@@ -54,9 +54,11 @@ CLASS zcl_alog_itab_logger IMPLEMENTATION.
                     text       = iv_text ) TO mt_log.
   ENDMETHOD.
 
+
   METHOD display_as_alv.
     get_alv( )->display( ).
   ENDMETHOD.
+
 
   METHOD display_as_alv_popup.
     DATA(lo_alv) = get_alv( ).
@@ -66,6 +68,7 @@ CLASS zcl_alog_itab_logger IMPLEMENTATION.
                               end_line     = iv_end_line ).
     lo_alv->display( ).
   ENDMETHOD.
+
 
   METHOD get_alv.
     " Because salv uses IS SUPPLIED the call needs to look like this unfortunately
@@ -118,6 +121,7 @@ CLASS zcl_alog_itab_logger IMPLEMENTATION.
       ENDTRY.
     ENDIF.
   ENDMETHOD.
+
 
   METHOD get_log_table.
     rt_log = mt_log.

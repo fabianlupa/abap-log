@@ -1,7 +1,7 @@
 "! Nullpointer exception
 CLASS zcx_alog_argument_null DEFINITION
   PUBLIC
-  INHERITING FROM zcx_alog_call_error
+  INHERITING FROM zcx_alog_illegal_argument
   FINAL
   CREATE PUBLIC.
 
@@ -27,7 +27,7 @@ CLASS zcx_alog_argument_null DEFINITION
       "! Raise nullpointer exception if object reference is null
       "! @parameter io_object | Object reference to check
       "! @parameter iv_variable_name | Name of the variable
-      "! @raising zcx_alog_nullpointer | io_object is null
+      "! @raising zcx_alog_argument_null | io_object is null
       raise_if_nullpointer IMPORTING io_object        TYPE REF TO object
                                      iv_variable_name TYPE csequence OPTIONAL
                            RAISING   zcx_alog_argument_null.
@@ -46,11 +46,13 @@ ENDCLASS.
 
 CLASS zcx_alog_argument_null IMPLEMENTATION.
   METHOD constructor ##ADT_SUPPRESS_GENERATION.
-    super->constructor( ix_previous = ix_previous
-                        is_textid   = COND #( WHEN iv_variable_name IS INITIAL
-                                              THEN gc_nullpointer
-                                              ELSE gc_nullpointer_with_name ) ).
+    super->constructor( ix_previous = ix_previous ).
+
     mv_variable_name = iv_variable_name.
+
+    if_t100_message~t100key = COND #( WHEN iv_variable_name IS INITIAL
+                                      THEN gc_nullpointer
+                                      ELSE gc_nullpointer_with_name ).
   ENDMETHOD.
 
   METHOD raise_if_nullpointer.

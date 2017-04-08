@@ -11,6 +11,10 @@
     <item>/README.md</item>
     <item>/package.json</item>
     <item>/.travis.yml</item>
+    <item>/.gitattributes</item>
+    <item>/abaplint.json</item>
+    <item>/travis/*</item>
+    <item>/abapdoc/*</item>
    </IGNORE>
   </DATA>
  </asx:values>
