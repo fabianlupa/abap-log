@@ -110,6 +110,18 @@
      <MSGNR>016</MSGNR>
      <TEXT>Illegal argument: &amp;1</TEXT>
     </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>017</MSGNR>
+     <TEXT>Unsupported operation.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZALOG</ARBGB>
+     <MSGNR>018</MSGNR>
+     <TEXT>Unsupported operation: &amp;1</TEXT>
+    </T100>
    </T100>
   </asx:values>
  </asx:abap>
