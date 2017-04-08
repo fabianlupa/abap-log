@@ -245,7 +245,7 @@ CLASS zcl_alog_static_logger IMPLEMENTATION.
     ELSE.
       RAISE EXCEPTION TYPE zcx_alog_unsupported_operation
         EXPORTING
-          iv_operation = 'message logging'.
+          iv_operation = 'message logging' ##NO_TEXT.
     ENDIF.
   ENDMETHOD.
 

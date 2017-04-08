@@ -1,6 +1,6 @@
 REPORT zalog_example_message_logger.
 
-PARAMETERS: p_dummy.
+PARAMETERS: p_dummy ##SEL_WRONG.
 
 INITIALIZATION.
   DATA(gt_excl_ucomms) = VALUE syucomm_t( ( 'ONLI' ) ( 'PRIN' ) ).

@@ -13,26 +13,26 @@ ENDCLASS.
 
 CLASS lcl_class_with_logging IMPLEMENTATION.
   METHOD constructor.
-    mi_logger = zcl_alog_static_logger=>get_logger( 'LCL_CLASS_WITH_LOGGING' ).
+    mi_logger = zcl_alog_static_logger=>get_logger( 'LCL_CLASS_WITH_LOGGING' ) ##NO_TEXT.
   ENDMETHOD.
 
   METHOD run.
-    mi_logger->info( 'Doing stuff' ).
-    mi_logger->warning( 'And logging it' ).
+    mi_logger->info( 'Doing stuff' ) ##NO_TEXT.
+    mi_logger->warning( 'And logging it' ) ##NO_TEXT.
   ENDMETHOD.
 ENDCLASS.
 
 INITIALIZATION.
   zcl_alog_static_configuration=>set_configuration( NEW zcl_alog_itab_logger( ) ).
 
-  zcl_alog_static_logger=>info( `Hello world.` ).
-  zcl_alog_static_logger=>info( `Hello world.` ).
-  zcl_alog_static_logger=>warning( `Hello darkness my old friend.` ).
-  zcl_alog_static_logger=>error( `I've come to talk with you again.` ).
-  zcl_alog_static_logger=>debug( `BEEP BOOP` ).
+  zcl_alog_static_logger=>info( `Hello world.` ) ##NO_TEXT.
+  zcl_alog_static_logger=>info( `Hello world.` ) ##NO_TEXT.
+  zcl_alog_static_logger=>warning( `Hello darkness my old friend.` ) ##NO_TEXT.
+  zcl_alog_static_logger=>error( `I've come to talk with you again.` ) ##NO_TEXT.
+  zcl_alog_static_logger=>debug( `BEEP BOOP` ) ##NO_TEXT.
   zcl_alog_static_logger=>exception( NEW zcx_alog_argument_null( ) ).
 
-  MESSAGE s000(zalog) WITH 'Hello from message class' INTO DATA(gv_dummy) ##NEEDED.
+  MESSAGE s000(zalog) WITH 'Hello from message class' INTO DATA(gv_dummy) ##NEEDED ##NO_TEXT.
   zcl_alog_static_logger=>info_msg( ).
 
   zcl_alog_static_logger=>warning_msg(
@@ -40,7 +40,7 @@ INITIALIZATION.
     iv_msgno = '001'
     iv_msgv1 = 'Hello from message class'
     iv_msgv2 = 'without where used list support...'
-  ).
+  ) ##NO_TEXT.
 
   NEW lcl_class_with_logging( )->run( ).
 

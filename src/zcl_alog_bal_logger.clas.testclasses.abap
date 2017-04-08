@@ -131,7 +131,7 @@ CLASS lcl_test IMPLEMENTATION.
         i_log_handle  = mo_logger->get_log_handle( )
       EXCEPTIONS
         log_not_found = 1
-        OTHERS        = 2.
+        OTHERS        = 2 ##FM_SUBRC_OK.
     cl_abap_unit_assert=>assert_subrc( msg = 'Log not found' ).
 
     " Load log from database
@@ -142,7 +142,7 @@ CLASS lcl_test IMPLEMENTATION.
         no_logs_specified  = 1
         log_not_found      = 2
         log_already_loaded = 3
-        OTHERS             = 4.
+        OTHERS             = 4 ##FM_SUBRC_OK.
     cl_abap_unit_assert=>assert_subrc( msg = 'Loading log from db failed' ).
 
     " Retrieve log from memory
@@ -166,7 +166,7 @@ CLASS lcl_test IMPLEMENTATION.
         et_msg        = rt_entries
       EXCEPTIONS
         log_not_found = 1
-        OTHERS        = 2.
+        OTHERS        = 2 ##FM_SUBRC_OK.
 
     cl_abap_unit_assert=>assert_subrc( msg = 'Log not found' ).
   ENDMETHOD.
