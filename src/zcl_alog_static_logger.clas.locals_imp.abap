@@ -1,5 +1,5 @@
-*CLASS lcl_logger_proxy DEFINITION DEFERRED.
-*CLASS zcl_alog_static_logger DEFINITION LOCAL FRIENDS lcl_logger_proxy.
+CLASS lcl_logger_proxy DEFINITION DEFERRED.
+CLASS zcl_alog_static_logger DEFINITION LOCAL FRIENDS lcl_logger_proxy.
 
 CLASS lcl_logger_proxy DEFINITION
   INHERITING FROM zcl_alog_msg_logger_base.
@@ -34,6 +34,26 @@ CLASS lcl_logger_proxy IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD entry_msg_internal.
+    DATA(lo_config) = zcl_alog_static_configuration=>get_active_configuration( ).
 
+    IF lo_config->mv_supports_t100_msg = abap_false.
+      " Default implementation of base class redirects to entry which should be fine as a fallback
+      super->entry_msg_internal( iv_msgid = iv_msgid
+                                 iv_msgno = iv_msgno
+                                 iv_msgty = iv_msgty
+                                 iv_msgv1 = iv_msgv1
+                                 iv_msgv2 = iv_msgv2
+                                 iv_msgv3 = iv_msgv3
+                                 iv_msgv4 = iv_msgv4 ).
+    ELSE.
+      " Native message handling
+      zcl_alog_static_logger=>get_msg_logger_internal( )->entry_msg( iv_msgid = iv_msgid
+                                                                     iv_msgno = iv_msgno
+                                                                     iv_msgty = iv_msgty
+                                                                     iv_msgv1 = iv_msgv1
+                                                                     iv_msgv2 = iv_msgv2
+                                                                     iv_msgv3 = iv_msgv3
+                                                                     iv_msgv4 = iv_msgv4 ).
+    ENDIF.
   ENDMETHOD.
 ENDCLASS.
