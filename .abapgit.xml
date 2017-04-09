@@ -16,6 +16,16 @@
     <item>/travis/*</item>
     <item>/abapdoc/*</item>
    </IGNORE>
+   <REQUIREMENTS>
+    <item>
+     <COMPONENT>SAP_BASIS</COMPONENT>
+     <MIN_RELEASE>740</MIN_RELEASE>
+    </item>
+    <item>
+     <COMPONENT>SAP_ABA</COMPONENT>
+     <MIN_RELEASE>740</MIN_RELEASE>
+    </item>
+   </REQUIREMENTS>
   </DATA>
  </asx:values>
 </asx:abap>
