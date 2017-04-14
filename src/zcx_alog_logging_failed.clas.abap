@@ -26,11 +26,9 @@ CLASS zcx_alog_logging_failed DEFINITION
     INTERFACES:
       if_t100_message.
     METHODS:
-      "! @parameter is_textid | Textid
       "! @parameter ix_previous | Previous exception
       "! @parameter iv_reason | Reason
-      constructor IMPORTING is_textid   LIKE if_t100_message=>t100key OPTIONAL
-                            ix_previous LIKE previous OPTIONAL
+      constructor IMPORTING ix_previous LIKE previous OPTIONAL
                             iv_reason   TYPE csequence OPTIONAL.
     DATA:
       mv_reason TYPE string.
@@ -47,10 +45,7 @@ CLASS zcx_alog_logging_failed IMPLEMENTATION.
     mv_reason = iv_reason.
 
     CLEAR me->textid.
-    IF is_textid IS INITIAL.
-      if_t100_message~t100key = gc_no_arguments.
-    ELSE.
-      if_t100_message~t100key = is_textid.
-    ENDIF.
+    if_t100_message~t100key = COND #( WHEN iv_reason IS NOT INITIAL THEN gc_with_reason
+                                      ELSE gc_no_arguments ).
   ENDMETHOD.
 ENDCLASS.
