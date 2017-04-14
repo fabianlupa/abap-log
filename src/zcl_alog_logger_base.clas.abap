@@ -30,12 +30,10 @@ CLASS zcl_alog_logger_base DEFINITION
       "! @parameter io_type | Type of the message
       "! @raising zcx_alog_logging_failed | Logging failed
       "! @raising zcx_alog_unsupported_msgty | Message type unsupported
-      "! @raising zcx_alog_argument_null | io_type cannot be null
       entry_internal ABSTRACT IMPORTING iv_text TYPE csequence
                                         io_type TYPE REF TO zcl_alog_entry_type
                               RAISING   zcx_alog_logging_failed
-                                        zcx_alog_unsupported_msgty
-                                        zcx_alog_argument_null,
+                                        zcx_alog_unsupported_msgty,
       "! Inform attached loggers
       "! @parameter iv_text | Message text
       "! @parameter io_type | Message type

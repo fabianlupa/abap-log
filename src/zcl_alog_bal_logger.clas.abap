@@ -107,7 +107,6 @@ CLASS zcl_alog_bal_logger IMPLEMENTATION.
       CLEAR ms_context.
       RAISE EXCEPTION TYPE zcx_alog_logging_failed
         EXPORTING
-          is_textid   = zcx_alog_logging_failed=>gc_with_reason
           ix_previous = lx_bal
           iv_reason   = lx_bal->get_text( ).
     ENDIF.
@@ -144,7 +143,6 @@ CLASS zcl_alog_bal_logger IMPLEMENTATION.
       DATA(lx_bal) = NEW zcx_alog_bal_error( ).
       RAISE EXCEPTION TYPE zcx_alog_logging_failed
         EXPORTING
-          is_textid   = zcx_alog_logging_failed=>gc_with_reason
           ix_previous = lx_bal
           iv_reason   = lx_bal->get_text( ).
     ENDIF.
@@ -249,7 +247,6 @@ CLASS zcl_alog_bal_logger IMPLEMENTATION.
       DATA(lx_bal) = NEW zcx_alog_bal_error( ).
       RAISE EXCEPTION TYPE zcx_alog_logging_failed
         EXPORTING
-          is_textid   = zcx_alog_logging_failed=>gc_with_reason
           ix_previous = lx_bal
           iv_reason   = lx_bal->get_text( ).
     ENDIF.
