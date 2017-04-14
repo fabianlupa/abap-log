@@ -1,5 +1,3 @@
-##TODO.
-
 *CLASS ltcl_test DEFINITION DEFERRED.
 *
 *CLASS ltcl_logger DEFINITION
