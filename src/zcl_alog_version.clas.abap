@@ -91,10 +91,11 @@ CLASS zcl_alog_version IMPLEMENTATION.
       rv_result = io_version_a->&1 - io_version_b->&1.
     END-OF-DEFINITION.
 
-    zcx_alog_argument_null=>raise_if_nullpointer(:
-      io_object = io_version_a iv_variable_name = 'IO_VERSION_A' ),
-      io_object = io_version_b iv_variable_name = 'IO_VERSION_B'
-    ).
+    IF io_version_a IS NOT BOUND OR io_version_b IS NOT BOUND.
+      RAISE EXCEPTION TYPE zcx_alog_argument_null
+        EXPORTING
+          iv_variable_name = 'IO_VERSION_A / IO_VERSION_B'.
+    ENDIF.
 
     WHILE rv_result = 0.
       CASE sy-index.
@@ -126,8 +127,7 @@ CLASS zcl_alog_version IMPLEMENTATION.
       RAISE EXCEPTION TYPE zcx_alog_illegal_argument
         EXPORTING
           iv_reason = 'Version format invalid'
-          iv_value  = iv_version
-          iv_name   = 'IV_VERSION' ##NO_TEXT.
+          iv_value  = iv_version ##NO_TEXT.
     ENDIF.
 
     ro_version = NEW #( iv_version ).

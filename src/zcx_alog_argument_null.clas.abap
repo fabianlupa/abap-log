@@ -23,14 +23,6 @@ CLASS zcx_alog_argument_null DEFINITION
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
       END OF gc_nullpointer_with_name.
-    CLASS-METHODS:
-      "! Raise nullpointer exception if object reference is null
-      "! @parameter io_object | Object reference to check
-      "! @parameter iv_variable_name | Name of the variable
-      "! @raising zcx_alog_argument_null | io_object is null
-      raise_if_nullpointer IMPORTING io_object        TYPE REF TO object
-                                     iv_variable_name TYPE csequence OPTIONAL
-                           RAISING   zcx_alog_argument_null.
     METHODS:
       "! @parameter ix_previous | Previous exception
       "! @parameter iv_variable_name | Name of the nullpointer variable
@@ -53,13 +45,5 @@ CLASS zcx_alog_argument_null IMPLEMENTATION.
     if_t100_message~t100key = COND #( WHEN iv_variable_name IS INITIAL
                                       THEN gc_nullpointer
                                       ELSE gc_nullpointer_with_name ).
-  ENDMETHOD.
-
-  METHOD raise_if_nullpointer.
-    IF io_object IS NOT BOUND.
-      RAISE EXCEPTION TYPE zcx_alog_argument_null
-        EXPORTING
-          iv_variable_name = iv_variable_name.
-    ENDIF.
   ENDMETHOD.
 ENDCLASS.

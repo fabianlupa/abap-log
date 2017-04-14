@@ -88,8 +88,7 @@ CLASS zcl_alog_dbtab_logger IMPLEMENTATION.
       RAISE EXCEPTION TYPE zcx_alog_illegal_argument
         EXPORTING
           iv_reason = |{ iv_tabname } is not an active database table.|
-          iv_value  = iv_tabname
-          iv_name   = 'IV_TABNAME' ##NO_TEXT.
+          iv_value  = iv_tabname ##NO_TEXT.
     ENDIF.
 
     mo_descr = CAST cl_abap_structdescr( cl_abap_typedescr=>describe_by_name(  iv_tabname ) ).
@@ -209,8 +208,7 @@ CLASS zcl_alog_dbtab_logger IMPLEMENTATION.
           EXPORTING
             iv_reason = |Column '{ <lg_target> }' is missing in table | &&
                         |{ io_descr->get_relative_name( ) }.|
-            iv_value  = CONV string( is_mapping )
-            iv_name   = 'IS_MAPPING' ##NO_TEXT.
+            iv_value  = CONV string( is_mapping ) ##NO_TEXT.
       ENDIF.
 
       UNASSIGN <lg_target>.
@@ -223,16 +221,14 @@ CLASS zcl_alog_dbtab_logger IMPLEMENTATION.
         RAISE EXCEPTION TYPE zcx_alog_illegal_argument
           EXPORTING
             iv_reason = |Column '{ <lv_comp> }' of key is missing in table | &&
-                        |{ io_descr->get_relative_name( ) }.|
-            iv_name   = 'IT_KEY' ##NO_TEXT.
+                        |{ io_descr->get_relative_name( ) }.| ##NO_TEXT.
       ENDIF.
     ENDLOOP.
 
     IF sy-subrc <> 0.
       RAISE EXCEPTION TYPE zcx_alog_illegal_argument
         EXPORTING
-          iv_reason = 'Key cannot be empty.'
-          iv_name   = 'IT_KEY' ##NO_TEXT.
+          iv_reason = 'Key cannot be empty.' ##NO_TEXT.
     ENDIF.
   ENDMETHOD.
 ENDCLASS.

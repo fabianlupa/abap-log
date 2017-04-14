@@ -82,8 +82,7 @@ CLASS zcl_alog_bal_logger IMPLEMENTATION.
       RAISE EXCEPTION TYPE zcx_alog_illegal_argument
         EXPORTING
           ix_previous = lx_ex
-          iv_reason   = lx_ex->get_text( )
-          iv_name     = 'IV_OBJECT/IV_SUBOBJECT'.
+          iv_reason   = lx_ex->get_text( ).
     ENDIF.
   ENDMETHOD.
 

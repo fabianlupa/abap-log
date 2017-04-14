@@ -56,8 +56,11 @@ CLASS zcl_alog_static_configuration IMPLEMENTATION.
   METHOD constructor.
     DATA: li_msg_logger TYPE REF TO zif_alog_msg_logger ##NEEDED.
 
-    zcx_alog_argument_null=>raise_if_nullpointer( io_object        = ii_logger
-                                                  iv_variable_name = 'II_LOGGER' ).
+    IF ii_logger IS NOT BOUND.
+      RAISE EXCEPTION TYPE zcx_alog_argument_null
+        EXPORTING
+          iv_variable_name = 'II_LOGGER'.
+    ENDIF.
 
     mv_supports_t100_msg = boolc( CAST cl_abap_objectdescr(
                                     CAST cl_abap_refdescr(
@@ -82,8 +85,12 @@ CLASS zcl_alog_static_configuration IMPLEMENTATION.
 
 
   METHOD set_configuration_instance.
-    zcx_alog_argument_null=>raise_if_nullpointer( io_object        = io_config
-                                                  iv_variable_name = 'IO_CONFIG' ).
+    IF io_config IS NOT BOUND.
+      RAISE EXCEPTION TYPE zcx_alog_argument_null
+        EXPORTING
+          iv_variable_name = 'IO_CONFIG'.
+    ENDIF.
+
     go_active_configuration = io_config.
   ENDMETHOD.
 ENDCLASS.
