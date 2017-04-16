@@ -1,4 +1,4 @@
-"! Version constants for AAP
+"! Version constants for abap-log
 CLASS zcl_alog_version DEFINITION
   PUBLIC
   FINAL
