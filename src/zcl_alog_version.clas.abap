@@ -7,7 +7,7 @@ CLASS zcl_alog_version DEFINITION
   PUBLIC SECTION.
     CONSTANTS:
       "! Version of abap-log library in major.minor.revision format
-      gc_version TYPE string VALUE '0.1.0-SNAPSHOT'.
+      gc_version TYPE string VALUE '0.1.0'.
     CLASS-METHODS:
       class_constructor,
       "! Factory method
