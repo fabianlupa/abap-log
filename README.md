@@ -81,7 +81,6 @@ Library documentation is done using ABAP Doc and can be found [here](https://fla
 To use this library at least ABAP 740 must be supported by the application server. The reason for this is mostly the new syntax which is heavily used.
 - Clone the repository via [abapGit](https://github.com/larshp/abapGit)
 - Recommended target package: ZALOG
-- Pick the latest tag in the select-branch-popup
 
 ## Development
 Feel free to contribute using pull requests or issues for feature requests and bug reports. This project has been entirely developed in the ABAP Development Tools for eclipse, including ABAP Doc documentation (which is automatically deployed to GitHub pages) and class based exceptions (these cannot be fully edited in SE24 (!)). Using eclipse is therefore highly recommended.
