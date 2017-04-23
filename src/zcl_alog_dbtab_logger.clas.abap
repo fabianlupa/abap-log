@@ -42,7 +42,18 @@ CLASS zcl_alog_dbtab_logger DEFINITION
   PROTECTED SECTION.
     METHODS:
       entry_internal REDEFINITION,
-      get_next_key ABSTRACT RETURNING VALUE(rv_key) TYPE string.
+      get_next_key ABSTRACT RETURNING VALUE(rv_key) TYPE string,
+      "! Persist the new log entry
+      "! <p>
+      "! The default implementation of this method uses a dynamic OpenSQL db insert based on the
+      "! current configuration regarding target table and secondary connection settings. If other
+      "! logic should be used by the logger you may override this method and instead for example
+      "! call an update function module to make use of update tasks.
+      "! </p>
+      "! @parameter ig_row | New log entry (type is the structure type of the db table)
+      "! @raising zcx_alog_logging_failed | Logging failed
+      insert_entry_in_db IMPORTING ig_row TYPE any
+                         RAISING   zcx_alog_logging_failed.
   PRIVATE SECTION.
     CLASS-METHODS:
       write_to_component IMPORTING iv_component_name TYPE abap_compname
@@ -164,17 +175,7 @@ CLASS zcl_alog_dbtab_logger IMPLEMENTATION.
       ).
     ENDIF.
 
-    IF mv_use_secondary_connection = abap_false OR mv_connection_key IS INITIAL.
-      INSERT (mv_tabname) CONNECTION default FROM <lg_row>.
-    ELSE.
-      INSERT (mv_tabname) CONNECTION (mv_connection_key) FROM <lg_row>.
-    ENDIF.
-
-    IF sy-subrc <> 0.
-      RAISE EXCEPTION TYPE zcx_alog_logging_failed
-        EXPORTING
-          iv_reason = |Dynamic INSERT into table '{ mv_tabname }' failed: { sy-subrc }| ##NO_TEXT.
-    ENDIF.
+    insert_entry_in_db( <lg_row> ).
 
     IF mv_always_implicit_commit = abap_true.
       IF mv_use_secondary_connection = abap_false OR mv_connection_key IS INITIAL.
@@ -182,6 +183,20 @@ CLASS zcl_alog_dbtab_logger IMPLEMENTATION.
       ELSE.
         COMMIT CONNECTION (mv_connection_key).
       ENDIF.
+    ENDIF.
+  ENDMETHOD.
+
+  METHOD insert_entry_in_db.
+    IF mv_use_secondary_connection = abap_false OR mv_connection_key IS INITIAL.
+      INSERT (mv_tabname) CONNECTION default FROM ig_row.
+    ELSE.
+      INSERT (mv_tabname) CONNECTION (mv_connection_key) FROM ig_row.
+    ENDIF.
+
+    IF sy-subrc <> 0.
+      RAISE EXCEPTION TYPE zcx_alog_logging_failed
+        EXPORTING
+          iv_reason = |Dynamic INSERT into table '{ mv_tabname }' failed: { sy-subrc }| ##NO_TEXT.
     ENDIF.
   ENDMETHOD.
 
