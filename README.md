@@ -59,8 +59,9 @@ CLASS lcl_class_with_logging DEFINITION.
 ENDCLASS.
 
 CLASS lcl_class_with_logging IMPLEMENTATION.
-  METHOD class_constuctor.
-    gi_logger = zcl_alog_static_logger=>get_logger( 'LCL_CLASS_WITH_LOGGING' ).
+  METHOD class_constructor.
+    DATA: lo_dummy TYPE REF TO lcl_class_with_logging ##NEEDED.
+    gi_logger = zcl_alog_static_logger=>get_logger_for_any( lo_dummy ).
   ENDMETHOD.
 
   METHOD run.

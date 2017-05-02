@@ -2,23 +2,29 @@ REPORT zalog_example_static_logger.
 
 CLASS lcl_class_with_logging DEFINITION.
   PUBLIC SECTION.
+    CLASS-METHODS:
+      class_constructor.
     METHODS:
-      constructor,
       run.
   PROTECTED SECTION.
   PRIVATE SECTION.
-    DATA:
-      mi_logger TYPE REF TO zif_alog_logger.
+    CLASS-DATA:
+      gi_logger TYPE REF TO zif_alog_logger.
 ENDCLASS.
 
 CLASS lcl_class_with_logging IMPLEMENTATION.
-  METHOD constructor.
-    mi_logger = zcl_alog_static_logger=>get_logger( 'LCL_CLASS_WITH_LOGGING' ) ##NO_TEXT.
+  METHOD class_constructor.
+    DATA: lo_dummy TYPE REF TO lcl_class_with_logging ##NEEDED.
+
+    gi_logger = zcl_alog_static_logger=>get_logger_for_any( lo_dummy ).
+
+*    gi_logger = zcl_alog_static_logger=>get_logger( 'LCL_CLASS_WITH_LOGGING' ) ##NO_TEXT.
+*    mi_logger = zcl_alog_static_logger=>get_logger_for_any( me ).
   ENDMETHOD.
 
   METHOD run.
-    mi_logger->info( 'Doing stuff' ) ##NO_TEXT.
-    mi_logger->warning( 'And logging it' ) ##NO_TEXT.
+    gi_logger->info( 'Doing stuff' ) ##NO_TEXT.
+    gi_logger->warning( 'And logging it' ) ##NO_TEXT.
   ENDMETHOD.
 ENDCLASS.
 

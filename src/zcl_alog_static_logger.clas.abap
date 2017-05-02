@@ -15,11 +15,21 @@ CLASS zcl_alog_static_logger DEFINITION
       "! @parameter ri_logger | Logger instance
       get_logger IMPORTING iv_prefix        TYPE csequence OPTIONAL
                  RETURNING VALUE(ri_logger) TYPE REF TO zif_alog_logger,
+      "! Get a (prefixed) logger instance
+      "! @parameter ig_any | Variable whose relative type name will be the logger prefix
+      "! @parameter ri_logger | Logger instance
+      get_logger_for_any IMPORTING ig_any           TYPE any
+                         RETURNING VALUE(ri_logger) TYPE REF TO zif_alog_logger,
       "! Get a (prefixed) message logger instance
       "! @parameter iv_prefix | Prefix to use (e. g. class name)
       "! @parameter ri_msg_logger | Logger instance
       get_msg_logger IMPORTING iv_prefix            TYPE csequence OPTIONAL
                      RETURNING VALUE(ri_msg_logger) TYPE REF TO zif_alog_msg_logger,
+      "! Get a prefixed logger for a variablle
+      "! @parameter ig_any | Variable whose relative type name will be the logger prefix
+      "! @parameter ri_msg_logger | Message logger instance
+      get_msg_logger_for_any IMPORTING ig_any               TYPE any
+                             RETURNING VALUE(ri_msg_logger) TYPE REF TO zif_alog_msg_logger,
       "! Log an informational message
       "! @parameter iv_text | Message text
       "! @raising zcx_alog_logging_failed | Logging failed
@@ -157,7 +167,9 @@ CLASS zcl_alog_static_logger DEFINITION
     CLASS-METHODS:
       get_logger_internal RETURNING VALUE(ri_logger) TYPE REF TO zif_alog_logger,
       get_msg_logger_internal RETURNING VALUE(ri_msg_logger) TYPE REF TO zif_alog_msg_logger
-                              RAISING   zcx_alog_unsupported_operation.
+                              RAISING   zcx_alog_unsupported_operation,
+      resolve_type_name IMPORTING ig_any         TYPE any
+                        RETURNING VALUE(rv_type) TYPE string.
 ENDCLASS.
 
 
@@ -257,7 +269,25 @@ CLASS zcl_alog_static_logger IMPLEMENTATION.
     ri_logger = NEW lcl_logger_proxy( iv_prefix ).
   ENDMETHOD.
 
+  METHOD get_logger_for_any.
+    ri_logger = get_logger( resolve_type_name( ig_any ) ).
+  ENDMETHOD.
+
   METHOD get_msg_logger.
     ri_msg_logger = NEW lcl_logger_proxy( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD get_msg_logger_for_any.
+    ri_msg_logger = get_msg_logger( resolve_type_name( ig_any ) ).
+  ENDMETHOD.
+
+  METHOD resolve_type_name.
+    DATA(lo_descr) = cl_abap_typedescr=>describe_by_data( ig_any ).
+
+    TRY.
+        rv_type = CAST cl_abap_refdescr( lo_descr )->get_referenced_type( )->get_relative_name( ).
+      CATCH cx_sy_move_cast_error.
+        rv_type = lo_descr->get_relative_name( ).
+    ENDTRY.
   ENDMETHOD.
 ENDCLASS.
