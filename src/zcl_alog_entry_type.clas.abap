@@ -22,7 +22,7 @@ CLASS zcl_alog_entry_type DEFINITION
       "!                          <li>Greater than 0 = priority A is higher than priority B</li>
       "!                          <li>Equal to 0 = priorities are identical</li>
       "!                        </ul>
-      "! @raising zcx_alog_argument_null | io_version_a and io_version_b cannot be null
+      "! @raising zcx_alog_argument_null | io_type_a and io_type_b cannot be null
       compare_priority IMPORTING io_type_a        TYPE REF TO zcl_alog_entry_type
                                  io_type_b        TYPE REF TO zcl_alog_entry_type
                        RETURNING VALUE(rv_result) TYPE i
