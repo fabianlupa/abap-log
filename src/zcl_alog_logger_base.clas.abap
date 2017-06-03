@@ -20,6 +20,11 @@ CLASS zcl_alog_logger_base DEFINITION
       warning FOR zif_alog_logger~warning,
       attach FOR zif_alog_attachable~attach,
       detach FOR zif_alog_attachable~detach.
+    METHODS:
+      constructor,
+      set_minimal_log_level IMPORTING io_type TYPE REF TO zcl_alog_entry_type
+                            RAISING   zcx_alog_argument_null,
+      get_minimal_log_level RETURNING VALUE(ro_type) TYPE REF TO zcl_alog_entry_type.
   PROTECTED SECTION.
     METHODS:
       "! Internal implementation of <em>zif_alog_logger-&gtentry_msg( )</em> to do the logging
@@ -48,11 +53,17 @@ CLASS zcl_alog_logger_base DEFINITION
     DATA:
       mt_attached_loggers TYPE HASHED TABLE OF REF TO zif_alog_logger WITH UNIQUE KEY table_line.
   PRIVATE SECTION.
+    DATA:
+      mo_minimal_log_level TYPE REF TO zcl_alog_entry_type.
 ENDCLASS.
 
 
 
 CLASS zcl_alog_logger_base IMPLEMENTATION.
+  METHOD constructor.
+    mo_minimal_log_level = zcl_alog_entry_type=>go_debug.
+  ENDMETHOD.
+
   METHOD zif_alog_logger~entry.
     IF io_type IS NOT BOUND.
       RAISE EXCEPTION TYPE zcx_alog_argument_null
@@ -61,7 +72,10 @@ CLASS zcl_alog_logger_base IMPLEMENTATION.
     ENDIF.
 
     inform_attached_loggers( iv_text = iv_text io_type = io_type ).
-    entry_internal( iv_text = iv_text io_type = io_type ).
+
+    IF mo_minimal_log_level->compare_priority_to( io_type ) <= 0.
+      entry_internal( iv_text = iv_text io_type = io_type ).
+    ENDIF.
   ENDMETHOD.
 
   METHOD zif_alog_logger~debug.
@@ -118,5 +132,19 @@ CLASS zcl_alog_logger_base IMPLEMENTATION.
     LOOP AT mt_attached_loggers ASSIGNING FIELD-SYMBOL(<li_logger>).
       <li_logger>->entry( iv_text = iv_text io_type = io_type ).
     ENDLOOP.
+  ENDMETHOD.
+
+  METHOD get_minimal_log_level.
+    ro_type = mo_minimal_log_level.
+  ENDMETHOD.
+
+  METHOD set_minimal_log_level.
+    IF io_type IS NOT BOUND.
+      RAISE EXCEPTION TYPE zcx_alog_argument_null
+        EXPORTING
+          iv_variable_name = 'IO_TYPE'.
+    ENDIF.
+
+    mo_minimal_log_level = io_type.
   ENDMETHOD.
 ENDCLASS.
