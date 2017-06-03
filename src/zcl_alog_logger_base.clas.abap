@@ -22,8 +22,19 @@ CLASS zcl_alog_logger_base DEFINITION
       detach FOR zif_alog_attachable~detach.
     METHODS:
       constructor,
+      "! Sets the minimal log level
+      "! <p>
+      "! If a new log entry's entry type does not have at least the priority of the entry type set
+      "! by this method the new entry will not be logged by this logger. It will however be
+      "! propagated to all attached loggers that will evaluate the relevance of the new log entry
+      "! based on their configured minimal log level.
+      "! </p>
+      "! @parameter io_type | Entry type with the new minimal priority
+      "! @raising zcx_alog_argument_null |
       set_minimal_log_level IMPORTING io_type TYPE REF TO zcl_alog_entry_type
                             RAISING   zcx_alog_argument_null,
+      "! Gets the minimal log level
+      "! @parameter ro_type | Entry type with the current minimal priority
       get_minimal_log_level RETURNING VALUE(ro_type) TYPE REF TO zcl_alog_entry_type.
   PROTECTED SECTION.
     METHODS:
