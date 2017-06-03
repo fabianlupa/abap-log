@@ -79,13 +79,19 @@ CLASS zcl_alog_msg_logger_base IMPLEMENTATION.
                                  iv_msgv2 = iv_msgv2
                                  iv_msgv3 = iv_msgv3
                                  iv_msgv4 = iv_msgv4 ).
-    entry_msg_internal( iv_msgid = iv_msgid
-                        iv_msgno = iv_msgno
-                        iv_msgty = iv_msgty
-                        iv_msgv1 = iv_msgv1
-                        iv_msgv2 = iv_msgv2
-                        iv_msgv3 = iv_msgv3
-                        iv_msgv4 = iv_msgv4 ).
+
+    IF get_minimal_log_level( )->compare_priority_to(
+         zcl_alog_entry_type=>from_msgty( iv_msgty )
+       ) <= 0.
+
+      entry_msg_internal( iv_msgid = iv_msgid
+                          iv_msgno = iv_msgno
+                          iv_msgty = iv_msgty
+                          iv_msgv1 = iv_msgv1
+                          iv_msgv2 = iv_msgv2
+                          iv_msgv3 = iv_msgv3
+                          iv_msgv4 = iv_msgv4 ).
+    ENDIF.
   ENDMETHOD.
 
   METHOD zif_alog_msg_logger~debug_msg.
