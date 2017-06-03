@@ -15,8 +15,8 @@ CLASS zcl_alog_entry_type DEFINITION
                  RETURNING VALUE(ro_entry_type) TYPE REF TO zcl_alog_entry_type
                  RAISING   zcx_alog_unsupported_msgty,
       "! Compare two log entry type priorities
-      "! @parameter io_version_a | Entry type A
-      "! @parameter io_version_b | Entry type B
+      "! @parameter io_type_a | Entry type A
+      "! @parameter io_type_b | Entry type B
       "! @parameter rv_result | <ul>
       "!                          <li>Less than 0 = priority A is lower than priority B</li>
       "!                          <li>Greater than 0 = priority A is higher than priority B</li>
