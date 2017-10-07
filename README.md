@@ -78,7 +78,7 @@ ENDCLASS.
 Library documentation is done using ABAP Doc and can be found [here](https://flaiker.github.io/abap-log/) as deployed HTML. It can also be viewed in eclipse in the _ABAP Element Info_ view (F2).
 
 **Class diagram**
-<img src="https://github.com/flaiker/abap-log/wiki/rendered/API.png" width="750px">
+<br/><img src="https://github.com/flaiker/abap-log/wiki/rendered/API.png">
 
 
 ## Installation
