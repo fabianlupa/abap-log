@@ -4,17 +4,20 @@ Logging library for ABAP
 ## Overview
 _abap-log_ is a library to provide various ways of logging messages in ABAP. The goal is to have a common interface for logger objects so that dependency injection can be used and logging-actions can be decoupled from application logic. Inline string log messages as well as message-class-based messages are supported.
 
-**The development state of this library is still quite early. Expect bugs and API breaking changes.**
-
 ### Supported targets
 - Internal table
-- Application log (BAL)
+- Application log (BC-SRV-BAL)
 - `MESSAGE`-statements for batch processing (job log)
 - SAP GUI progress indicator
-- Custom database tables (WIP)
+- Custom database tables
+- Log text files on the application server
+- Eclipse console (using [IF_OO_ADT_CLASSRUN](https://help.sap.com/viewer/c238d694b825421f940829321ffa326a/7.51.1/en-US/520a4e84024b4a96b3793775bf9e6844.html))
 
 ### Examples
 Example programs for each logger can be found in the package [ZALOG_EXAMPLE](https://github.com/flaiker/abap-log/tree/master/src/example).
+
+**Console logging in ABAP 7.51**
+<img src="https://github.com/flaiker/abap-log/wiki/rendered/console.png">
 
 **Internal table logging**
 ```abap
