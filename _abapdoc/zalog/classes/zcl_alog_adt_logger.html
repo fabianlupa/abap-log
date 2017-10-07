@@ -1,0 +1,18 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><title>Class ZCL_ALOG_ADT_LOGGER</title><link rel="stylesheet" href="../../../htmldesign/stylesheet.css" type="text/css"></head><body><div id="header"><div id="navigationMenu"><a href="#attributes">Attributes</a> | <a href="#methods">Methods</a></div></div><div id="content"><h2>Class <span class="identifier objectName">ZCL_ALOG_ADT_LOGGER</span></h2><p>public inheriting from ZCL_ALOG_MSG_LOGGER_BASE create public</p><h4>Documentation</h4><span class="abapDocComment"> Logger for ADT console applications
+ <p>
+ This logger dynamically uses the <em>OUT</em>-parameter of <em>IF_OO_ADT_CLASSRUN~MAIN</em> for
+ log output. Static usage is intentionally avoided because the interface is only available as of
+ ABAP 7.51.
+ </p>
+ Unfortunately there are some limitations if you expect Java-style console output. These seem to
+ be 'by design':
+ <ul>
+   <li>Logged output is only transmitted after the <em>main</em>-method has finished
+       execution</li>
+   <li>Logged output is not transmitted at all if the application fails with a short dump</li>
+   <li>Log entries are always separated by an empty line</li>
+ </ul></span><h4 id="attributes">Attributes</h4><table><thead><tr><th>Visibility and Level</th><th>Name</th><th>Documentation</th></tr></thead><tr ><td>private instance</td><td><span class="identifier fieldName">mi_console_adapter</span> type ref to LCL_ADAPTER  </td><td>&#160;</td></tr></table><h4 id="methods">Methods</h4><table><thead><tr><th>Visibility and Level</th><th>Name</th><th>Documentation</th></tr></thead><tr ><td>public instance</td><td><table class="methodSignature"><tr><td colspan="3"><span class="identifier methodName">constructor</span> </td></tr><tr><td>importing</td><td><span class="identifier parameterName">io_out</span></td><td>type ref to OBJECT</td></tr><tr><td>raising</td><td colspan="2"><span class="identifier exceptionName">zcx_alog_argument_null</span></td></tr><tr><td>raising</td><td colspan="2"><span class="identifier exceptionName">zcx_alog_illegal_argument</span></td></tr></table></td><td><span class="abapDocComment"> </span><h5>Parameters</h5><table class="methodParametersDocumentation"><tr ><td><span class="identifier parameterName">io_out</span></td><td><span class="abapDocComment"> Reference to <em>IF_OO_ADT_INTRNL_CLASSRUN</em> as found in
+                     <em>IF_OO_ADT_CLASSRUN~MAIN</em>-OUT
+ </span></td></tr></table><h5>Class-based Exceptions</h5><table class="exceptions"><tr ><td><span class="identifier exceptionName">zcx_alog_argument_null</span></td><td><span class="abapDocComment"> <em>io_out</em> cannot be null
+ </span></td></tr><tr ><td><span class="identifier exceptionName">zcx_alog_illegal_argument</span></td><td><span class="abapDocComment"> <em>io_out</em> does not implement
+                                      <em>IF_OO_ADT_INTRNL_CLASSRUN</em></span></td></tr></table></td></tr><tr ><td>protected instance</td><td><span class="identifier methodName">entry_internal</span> redefinition</td><td>&#160;</td></tr><tr ><td>private instance</td><td><table class="methodSignature"><tr><td colspan="3"><span class="identifier methodName">format_entry</span> </td></tr><tr><td>importing</td><td><span class="identifier parameterName">iv_text</span></td><td>type CSEQUENCE</td></tr><tr><td></td><td><span class="identifier parameterName">io_type</span></td><td>type ref to ZCL_ALOG_ENTRY_TYPE</td></tr><tr><td>returning</td><td>value(<span class="identifier parameterName">rv_formatted</span>)</td><td>type STRING</td></tr></table></td><td>&#160;</td></tr></table></div></body></html>
