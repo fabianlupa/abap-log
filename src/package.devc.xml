@@ -4,7 +4,16 @@
   <asx:values>
    <DEVC>
     <CTEXT>abap-log</CTEXT>
+    <RESTRICTED>X</RESTRICTED>
+    <MAINPACK>X</MAINPACK>
+    <SRV_CHECK>X</SRV_CHECK>
    </DEVC>
+   <PERMISSION>
+    <SCOMPPDTLN>
+     <INTF_NAME>SABAPDEMOS</INTF_NAME>
+     <ERR_SEVER>NONE</ERR_SEVER>
+    </SCOMPPDTLN>
+   </PERMISSION>
   </asx:values>
  </asx:abap>
 </abapGit>

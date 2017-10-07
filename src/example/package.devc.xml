@@ -4,7 +4,22 @@
   <asx:values>
    <DEVC>
     <CTEXT>abap-log examples</CTEXT>
+    <SRV_CHECK>X</SRV_CHECK>
    </DEVC>
+   <PERMISSION>
+    <SCOMPPDTLN>
+     <INTF_NAME>ZALOG_CORE_INTERNAL</INTF_NAME>
+     <ERR_SEVER>NONE</ERR_SEVER>
+    </SCOMPPDTLN>
+    <SCOMPPDTLN>
+     <INTF_NAME>ZALOG_CORE_PUBLIC</INTF_NAME>
+     <ERR_SEVER>NONE</ERR_SEVER>
+    </SCOMPPDTLN>
+    <SCOMPPDTLN>
+     <INTF_NAME>ZALOG_LOGGERS_PUBLIC</INTF_NAME>
+     <ERR_SEVER>NONE</ERR_SEVER>
+    </SCOMPPDTLN>
+   </PERMISSION>
   </asx:values>
  </asx:abap>
 </abapGit>

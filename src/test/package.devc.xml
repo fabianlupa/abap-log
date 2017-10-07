@@ -4,7 +4,14 @@
   <asx:values>
    <DEVC>
     <CTEXT>abap-log unit test</CTEXT>
+    <SRV_CHECK>X</SRV_CHECK>
    </DEVC>
+   <PERMISSION>
+    <SCOMPPDTLN>
+     <INTF_NAME>ZALOG_CORE_PUBLIC</INTF_NAME>
+     <ERR_SEVER>NONE</ERR_SEVER>
+    </SCOMPPDTLN>
+   </PERMISSION>
   </asx:values>
  </asx:abap>
 </abapGit>

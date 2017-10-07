@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_PINF" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <PINF>
+    <ATTRIBUTES>
+     <INTF_NAME>ZALOG_PUBLIC</INTF_NAME>
+     <DESCRIPT>ZALOG public</DESCRIPT>
+    </ATTRIBUTES>
+    <ELEMENTS>
+     <SCOMELDTLN>
+      <INTF_NAME>ZALOG_PUBLIC</INTF_NAME>
+      <ELEM_TYPE>PINF</ELEM_TYPE>
+      <ELEM_KEY>ZALOG_CORE_PUBLIC</ELEM_KEY>
+     </SCOMELDTLN>
+     <SCOMELDTLN>
+      <INTF_NAME>ZALOG_PUBLIC</INTF_NAME>
+      <ELEM_TYPE>PINF</ELEM_TYPE>
+      <ELEM_KEY>ZALOG_LOGGERS_PUBLIC</ELEM_KEY>
+     </SCOMELDTLN>
+    </ELEMENTS>
+   </PINF>
+  </asx:values>
+ </asx:abap>
+</abapGit>

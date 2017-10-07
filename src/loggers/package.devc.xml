@@ -3,16 +3,16 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <DEVC>
-    <CTEXT>abap-log core</CTEXT>
+    <CTEXT>abap-log loggers</CTEXT>
     <SRV_CHECK>X</SRV_CHECK>
    </DEVC>
    <PERMISSION>
     <SCOMPPDTLN>
-     <INTF_NAME>SABAPDEMOS</INTF_NAME>
+     <INTF_NAME>ZALOG_CORE_PUBLIC</INTF_NAME>
      <ERR_SEVER>NONE</ERR_SEVER>
     </SCOMPPDTLN>
     <SCOMPPDTLN>
-     <INTF_NAME>ZALOG_LOGGERS_PUBLIC</INTF_NAME>
+     <INTF_NAME>ZALOG_TEST_INTERNAL</INTF_NAME>
      <ERR_SEVER>NONE</ERR_SEVER>
     </SCOMPPDTLN>
    </PERMISSION>
