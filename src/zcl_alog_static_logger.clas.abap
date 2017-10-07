@@ -25,7 +25,7 @@ CLASS zcl_alog_static_logger DEFINITION
       "! @parameter ri_msg_logger | Logger instance
       get_msg_logger IMPORTING iv_prefix            TYPE csequence OPTIONAL
                      RETURNING VALUE(ri_msg_logger) TYPE REF TO zif_alog_msg_logger,
-      "! Get a prefixed logger for a variablle
+      "! Get a prefixed logger for a variable
       "! @parameter ig_any | Variable whose relative type name will be the logger prefix
       "! @parameter ri_msg_logger | Message logger instance
       get_msg_logger_for_any IMPORTING ig_any               TYPE any
