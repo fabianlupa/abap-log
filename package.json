@@ -3,6 +3,6 @@
     "test": "abaplint src/*.abap"
   },
   "devDependencies": {
-    "abaplint": ">=0.29.17"
+    "abaplint": ">=1.4.2"
   }
 }

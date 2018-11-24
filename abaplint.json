@@ -17,7 +17,7 @@
          "enabled":true
       },
       "parser_error":{
-         "enabled":false
+         "enabled":true
       },
       "space_before_colon":{
          "enabled":true
