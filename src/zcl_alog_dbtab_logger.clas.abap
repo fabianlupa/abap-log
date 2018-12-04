@@ -23,7 +23,7 @@ CLASS zcl_alog_dbtab_logger DEFINITION
         username_target  TYPE fieldname,
         timestamp_target TYPE fieldname,
       END OF gty_mapping,
-      gty_key_component_tab TYPE STANDARD TABLE OF fieldname.
+      gty_key_component_tab TYPE STANDARD TABLE OF fieldname WITH DEFAULT KEY.
     METHODS:
       "! @parameter iv_tabname | Name of the database table
       "! @parameter is_mapping | Mapping configuration
@@ -132,7 +132,7 @@ CLASS zcl_alog_dbtab_logger IMPLEMENTATION.
     ASSIGN lr_key->* TO <lg_key>.
     <lg_key> = get_next_key( ).
 
-    <lg_row> = CORRESPONDING #( <lg_key> ).
+    MOVE-CORRESPONDING <lg_key> TO <lg_row>.
 
     IF ms_mapping-text_target IS NOT INITIAL.
       write_to_component(
