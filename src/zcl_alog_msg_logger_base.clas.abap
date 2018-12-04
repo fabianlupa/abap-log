@@ -3,21 +3,31 @@
 "! Inherit from this class and implement <em>entry_internal</em> and ideally overwrite
 "! <em>entry_msg_internal</em> for the logging logic.
 "! </p>
-CLASS zcl_alog_msg_logger_base DEFINITION
-  PUBLIC
-  ABSTRACT
-  INHERITING FROM zcl_alog_logger_base
-  CREATE PUBLIC.
+class ZCL_ALOG_MSG_LOGGER_BASE definition
+  public
+  inheriting from ZCL_ALOG_LOGGER_BASE
+  abstract
+  create public .
 
-  PUBLIC SECTION.
-    INTERFACES:
-      zif_alog_msg_logger FINAL METHODS entry_msg.
-    ALIASES:
-      debug_msg FOR zif_alog_msg_logger~debug_msg,
-      entry_msg FOR zif_alog_msg_logger~entry_msg,
-      error_msg FOR zif_alog_msg_logger~error_msg,
-      info_msg FOR zif_alog_msg_logger~info_msg,
-      warning_msg FOR zif_alog_msg_logger~warning_msg.
+public section.
+
+  interfaces ZIF_ALOG_BAPIRET_LOGGER .
+  interfaces ZIF_ALOG_MSG_LOGGER .
+
+  aliases DEBUG_MSG
+    for ZIF_ALOG_MSG_LOGGER~DEBUG_MSG .
+  aliases ENTRY_BAPIRET
+    for ZIF_ALOG_BAPIRET_LOGGER~ENTRY_BAPIRET .
+  aliases ENTRY_BAPIRET_TABLE
+    for ZIF_ALOG_BAPIRET_LOGGER~ENTRY_BAPIRET_TABLE .
+  aliases ENTRY_MSG
+    for ZIF_ALOG_MSG_LOGGER~ENTRY_MSG .
+  aliases ERROR_MSG
+    for ZIF_ALOG_MSG_LOGGER~ERROR_MSG .
+  aliases INFO_MSG
+    for ZIF_ALOG_MSG_LOGGER~INFO_MSG .
+  aliases WARNING_MSG
+    for ZIF_ALOG_MSG_LOGGER~WARNING_MSG .
   PROTECTED SECTION.
     METHODS:
       inform_attached_loggers REDEFINITION,
@@ -63,76 +73,36 @@ CLASS zcl_alog_msg_logger_base DEFINITION
                                    VALUE(iv_msgv4) TYPE syst_msgv DEFAULT sy-msgv4
                          RAISING   zcx_alog_logging_failed
                                    zcx_alog_unsupported_msgty.
-  PRIVATE SECTION.
-    DATA:
-      mv_block_entry_inform TYPE abap_bool.
+private section.
+
+  data MV_BLOCK_ENTRY_INFORM type ABAP_BOOL .
 ENDCLASS.
 
 
 
-CLASS zcl_alog_msg_logger_base IMPLEMENTATION.
-  METHOD zif_alog_msg_logger~entry_msg.
-    inform_attached_loggers_msg( iv_msgid = iv_msgid
-                                 iv_msgno = iv_msgno
-                                 iv_msgty = iv_msgty
-                                 iv_msgv1 = iv_msgv1
-                                 iv_msgv2 = iv_msgv2
-                                 iv_msgv3 = iv_msgv3
-                                 iv_msgv4 = iv_msgv4 ).
+CLASS ZCL_ALOG_MSG_LOGGER_BASE IMPLEMENTATION.
 
-    IF get_minimal_log_level( )->compare_priority_to(
-         zcl_alog_entry_type=>from_msgty( iv_msgty )
-       ) <= 0.
 
-      entry_msg_internal( iv_msgid = iv_msgid
-                          iv_msgno = iv_msgno
-                          iv_msgty = iv_msgty
-                          iv_msgv1 = iv_msgv1
-                          iv_msgv2 = iv_msgv2
-                          iv_msgv3 = iv_msgv3
-                          iv_msgv4 = iv_msgv4 ).
+  METHOD entry_msg_internal.
+    " Default implementation just redirects to entry( )
+    MESSAGE ID iv_msgid TYPE iv_msgty NUMBER iv_msgno
+            WITH iv_msgv1 iv_msgv2 iv_msgv3 iv_msgv4
+            INTO DATA(lv_msg_text).
+
+    " Attached loggers are already informed
+    mv_block_entry_inform = abap_true.
+    entry( iv_text = lv_msg_text io_type = zcl_alog_entry_type=>from_msgty( iv_msgty ) ).
+    mv_block_entry_inform = abap_false.
+  ENDMETHOD.
+
+
+  METHOD inform_attached_loggers.
+    " Inform attached loggers only if they were not already already informed by entry_msg( )
+    IF mv_block_entry_inform = abap_false.
+      super->inform_attached_loggers( iv_text = iv_text io_type = io_type ).
     ENDIF.
   ENDMETHOD.
 
-  METHOD zif_alog_msg_logger~debug_msg.
-    entry_msg( iv_msgid = iv_msgid
-               iv_msgno = iv_msgno
-               iv_msgty = 'I'
-               iv_msgv1 = iv_msgv1
-               iv_msgv2 = iv_msgv2
-               iv_msgv3 = iv_msgv3
-               iv_msgv4 = iv_msgv4 ).
-  ENDMETHOD.
-
-  METHOD zif_alog_msg_logger~error_msg.
-    entry_msg( iv_msgid = iv_msgid
-               iv_msgno = iv_msgno
-               iv_msgty = 'E'
-               iv_msgv1 = iv_msgv1
-               iv_msgv2 = iv_msgv2
-               iv_msgv3 = iv_msgv3
-               iv_msgv4 = iv_msgv4 ).
-  ENDMETHOD.
-
-  METHOD zif_alog_msg_logger~info_msg.
-    entry_msg( iv_msgid = iv_msgid
-               iv_msgno = iv_msgno
-               iv_msgty = 'I'
-               iv_msgv1 = iv_msgv1
-               iv_msgv2 = iv_msgv2
-               iv_msgv3 = iv_msgv3
-               iv_msgv4 = iv_msgv4 ).
-  ENDMETHOD.
-
-  METHOD zif_alog_msg_logger~warning_msg.
-    entry_msg( iv_msgid = iv_msgid
-               iv_msgno = iv_msgno
-               iv_msgty = 'W'
-               iv_msgv1 = iv_msgv1
-               iv_msgv2 = iv_msgv2
-               iv_msgv3 = iv_msgv3
-               iv_msgv4 = iv_msgv4 ).
-  ENDMETHOD.
 
   METHOD inform_attached_loggers_msg.
     DATA: li_msg_logger TYPE REF TO zif_alog_msg_logger.
@@ -165,22 +135,89 @@ CLASS zcl_alog_msg_logger_base IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 
-  METHOD inform_attached_loggers.
-    " Inform attached loggers only if they were not already already informed by entry_msg( )
-    IF mv_block_entry_inform = abap_false.
-      super->inform_attached_loggers( iv_text = iv_text io_type = io_type ).
+
+  METHOD zif_alog_bapiret_logger~entry_bapiret.
+    entry_msg( iv_msgid = is_return-id
+               iv_msgno = is_return-number
+               iv_msgty = is_return-type
+               iv_msgv1 = is_return-message_v1
+               iv_msgv2 = is_return-message_v2
+               iv_msgv3 = is_return-message_v3
+               iv_msgv4 = is_return-message_v4 ).
+  ENDMETHOD.
+
+
+  METHOD zif_alog_bapiret_logger~entry_bapiret_table.
+    LOOP AT it_return ASSIGNING FIELD-SYMBOL(<ls_return>).
+      entry_bapiret( <ls_return> ).
+    ENDLOOP.
+  ENDMETHOD.
+
+
+  METHOD zif_alog_msg_logger~debug_msg.
+    entry_msg( iv_msgid = iv_msgid
+               iv_msgno = iv_msgno
+               iv_msgty = 'I'
+               iv_msgv1 = iv_msgv1
+               iv_msgv2 = iv_msgv2
+               iv_msgv3 = iv_msgv3
+               iv_msgv4 = iv_msgv4 ).
+  ENDMETHOD.
+
+
+  METHOD zif_alog_msg_logger~entry_msg.
+    inform_attached_loggers_msg( iv_msgid = iv_msgid
+                                 iv_msgno = iv_msgno
+                                 iv_msgty = iv_msgty
+                                 iv_msgv1 = iv_msgv1
+                                 iv_msgv2 = iv_msgv2
+                                 iv_msgv3 = iv_msgv3
+                                 iv_msgv4 = iv_msgv4 ).
+
+    IF get_minimal_log_level( )->compare_priority_to(
+         zcl_alog_entry_type=>from_msgty( iv_msgty )
+       ) <= 0.
+
+      entry_msg_internal( iv_msgid = iv_msgid
+                          iv_msgno = iv_msgno
+                          iv_msgty = iv_msgty
+                          iv_msgv1 = iv_msgv1
+                          iv_msgv2 = iv_msgv2
+                          iv_msgv3 = iv_msgv3
+                          iv_msgv4 = iv_msgv4 ).
     ENDIF.
   ENDMETHOD.
 
-  METHOD entry_msg_internal.
-    " Default implementation just redirects to entry( )
-    MESSAGE ID iv_msgid TYPE iv_msgty NUMBER iv_msgno
-            WITH iv_msgv1 iv_msgv2 iv_msgv3 iv_msgv4
-            INTO DATA(lv_msg_text).
 
-    " Attached loggers are already informed
-    mv_block_entry_inform = abap_true.
-    entry( iv_text = lv_msg_text io_type = zcl_alog_entry_type=>from_msgty( iv_msgty ) ).
-    mv_block_entry_inform = abap_false.
+  METHOD zif_alog_msg_logger~error_msg.
+    entry_msg( iv_msgid = iv_msgid
+               iv_msgno = iv_msgno
+               iv_msgty = 'E'
+               iv_msgv1 = iv_msgv1
+               iv_msgv2 = iv_msgv2
+               iv_msgv3 = iv_msgv3
+               iv_msgv4 = iv_msgv4 ).
+  ENDMETHOD.
+
+
+  METHOD zif_alog_msg_logger~info_msg.
+    entry_msg( iv_msgid = iv_msgid
+               iv_msgno = iv_msgno
+               iv_msgty = 'I'
+               iv_msgv1 = iv_msgv1
+               iv_msgv2 = iv_msgv2
+               iv_msgv3 = iv_msgv3
+               iv_msgv4 = iv_msgv4 ).
+  ENDMETHOD.
+
+
+  METHOD zif_alog_msg_logger~warning_msg.
+    entry_msg( iv_msgid = iv_msgid
+               iv_msgno = iv_msgno
+               iv_msgty = 'W'
+               iv_msgv1 = iv_msgv1
+               iv_msgv2 = iv_msgv2
+               iv_msgv3 = iv_msgv3
+               iv_msgv4 = iv_msgv4 ).
   ENDMETHOD.
 ENDCLASS.
