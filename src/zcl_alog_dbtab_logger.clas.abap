@@ -23,7 +23,7 @@ CLASS zcl_alog_dbtab_logger DEFINITION
         username_target  TYPE fieldname,
         timestamp_target TYPE fieldname,
       END OF gty_mapping,
-      gty_key_component_tab TYPE STANDARD TABLE OF fieldname.
+      gty_key_component_tab TYPE STANDARD TABLE OF fieldname WITH DEFAULT KEY.
     METHODS:
       "! @parameter iv_tabname | Name of the database table
       "! @parameter is_mapping | Mapping configuration
@@ -78,7 +78,9 @@ ENDCLASS.
 
 
 
-CLASS zcl_alog_dbtab_logger IMPLEMENTATION.
+CLASS ZCL_ALOG_DBTAB_LOGGER IMPLEMENTATION.
+
+
   METHOD constructor.
     super->constructor( ).
 
@@ -115,6 +117,7 @@ CLASS zcl_alog_dbtab_logger IMPLEMENTATION.
     ms_mapping = is_mapping.
   ENDMETHOD.
 
+
   METHOD entry_internal.
     DATA: lr_table_line TYPE REF TO data,
           lr_key        TYPE REF TO data.
@@ -132,7 +135,7 @@ CLASS zcl_alog_dbtab_logger IMPLEMENTATION.
     ASSIGN lr_key->* TO <lg_key>.
     <lg_key> = get_next_key( ).
 
-    <lg_row> = CORRESPONDING #( <lg_key> ).
+    MOVE-CORRESPONDING <lg_key> TO <lg_row>.
 
     IF ms_mapping-text_target IS NOT INITIAL.
       write_to_component(
@@ -186,6 +189,7 @@ CLASS zcl_alog_dbtab_logger IMPLEMENTATION.
     ENDIF.
   ENDMETHOD.
 
+
   METHOD insert_entry_in_db.
     IF mv_use_secondary_connection = abap_false OR mv_connection_key IS INITIAL.
       INSERT (mv_tabname) CONNECTION default FROM ig_row.
@@ -200,12 +204,24 @@ CLASS zcl_alog_dbtab_logger IMPLEMENTATION.
     ENDIF.
   ENDMETHOD.
 
-  METHOD write_to_component.
-    ASSIGN COMPONENT iv_component_name OF STRUCTURE cg_structure TO FIELD-SYMBOL(<lg_comp>).
-    ASSERT <lg_comp> IS ASSIGNED.
-    <lg_comp> = iv_text.
-*    WRITE iv_text TO <lg_comp>.
+
+  METHOD validate_key.
+    LOOP AT it_key ASSIGNING FIELD-SYMBOL(<lv_comp>).
+      IF NOT line_exists( io_descr->components[ name = <lv_comp> ] ).
+        RAISE EXCEPTION TYPE zcx_alog_illegal_argument
+          EXPORTING
+            iv_reason = |Column '{ <lv_comp> }' of key is missing in table | &&
+                        |{ io_descr->get_relative_name( ) }.| ##NO_TEXT.
+      ENDIF.
+    ENDLOOP.
+
+    IF sy-subrc <> 0.
+      RAISE EXCEPTION TYPE zcx_alog_illegal_argument
+        EXPORTING
+          iv_reason = 'Key cannot be empty.' ##NO_TEXT.
+    ENDIF.
   ENDMETHOD.
+
 
   METHOD validate_mapping.
     DATA(lo_mapping_descr) = CAST cl_abap_structdescr(
@@ -230,20 +246,11 @@ CLASS zcl_alog_dbtab_logger IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 
-  METHOD validate_key.
-    LOOP AT it_key ASSIGNING FIELD-SYMBOL(<lv_comp>).
-      IF NOT line_exists( io_descr->components[ name = <lv_comp> ] ).
-        RAISE EXCEPTION TYPE zcx_alog_illegal_argument
-          EXPORTING
-            iv_reason = |Column '{ <lv_comp> }' of key is missing in table | &&
-                        |{ io_descr->get_relative_name( ) }.| ##NO_TEXT.
-      ENDIF.
-    ENDLOOP.
 
-    IF sy-subrc <> 0.
-      RAISE EXCEPTION TYPE zcx_alog_illegal_argument
-        EXPORTING
-          iv_reason = 'Key cannot be empty.' ##NO_TEXT.
-    ENDIF.
+  METHOD write_to_component.
+    ASSIGN COMPONENT iv_component_name OF STRUCTURE cg_structure TO FIELD-SYMBOL(<lg_comp>).
+    ASSERT <lg_comp> IS ASSIGNED.
+    <lg_comp> = iv_text.
+*    WRITE iv_text TO <lg_comp>.
   ENDMETHOD.
 ENDCLASS.
