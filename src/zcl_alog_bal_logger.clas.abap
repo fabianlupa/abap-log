@@ -12,10 +12,12 @@ CLASS zcl_alog_bal_logger DEFINITION
       "! @parameter iv_object | BAL object
       "! @parameter iv_subobject | BAL suboject
       "! @parameter iv_ext_id | External id for the logs
+      "! @parameter iv_date_delete | Application log: expiry date
       "! @raising zcx_alog_illegal_argument | Object or subobject do not exist
-      constructor IMPORTING iv_object    TYPE balobj_d OPTIONAL
-                            iv_subobject TYPE balsubobj OPTIONAL
-                            iv_ext_id    TYPE balnrext OPTIONAL
+      constructor IMPORTING iv_object      TYPE balobj_d OPTIONAL
+                            iv_subobject   TYPE balsubobj OPTIONAL
+                            iv_ext_id      TYPE balnrext OPTIONAL
+                            iv_date_delete TYPE aldate_del OPTIONAL
                   RAISING   zcx_alog_illegal_argument,
       exception REDEFINITION,
       "! Save log to db
@@ -63,9 +65,10 @@ CLASS zcl_alog_bal_logger IMPLEMENTATION.
     super->constructor( ).
 
     DATA(ls_log) = VALUE bal_s_log(
-      extnumber = iv_ext_id
-      object    = iv_object
-      subobject = iv_subobject
+      extnumber  = iv_ext_id
+      object     = iv_object
+      subobject  = iv_subobject
+      aldate_del = iv_date_delete
     ).
 
     CALL FUNCTION 'BAL_LOG_CREATE'
