@@ -52,11 +52,15 @@ CLASS zcl_alog_adt_logger IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD format_entry.
-    DATA: lv_timestamp TYPE timestampl.
+    DATA:
+      lv_timestamp TYPE timestampl,
+      lv_timezone  TYPE timezone.
 
     ASSERT io_type IS BOUND.
     GET TIME STAMP FIELD lv_timestamp.
-    DATA(lv_timezone) = cl_abap_tstmp=>get_system_timezone( ).
+    CALL FUNCTION 'GET_SYSTEM_TIMEZONE'
+      IMPORTING
+        timezone = lv_timezone.
 
     rv_formatted = |{ lv_timestamp TIMESTAMP = ISO TIMEZONE = lv_timezone } | &&
                    |{ io_type->mv_description WIDTH = 7 ALIGN = LEFT } | &&
