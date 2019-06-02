@@ -250,15 +250,14 @@ CLASS zcl_alog_static_logger IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_msg_logger_internal.
-    DATA(li_logger) = get_logger_internal( ).
-
-    IF zcl_alog_static_configuration=>get_active_configuration( )->mv_supports_t100_msg = abap_true.
-      ri_msg_logger ?= li_logger.
-    ELSE.
-      RAISE EXCEPTION TYPE zcx_alog_unsupported_operation
-        EXPORTING
-          iv_operation = 'message logging' ##NO_TEXT.
-    ENDIF.
+    TRY.
+        ri_msg_logger ?= get_logger_internal( ).
+      CATCH cx_sy_move_cast_error INTO DATA(lx_ex).
+        RAISE EXCEPTION TYPE zcx_alog_unsupported_operation
+          EXPORTING
+            iv_operation = 'message logging' ##NO_TEXT
+            ix_previous  = lx_ex.
+    ENDTRY.
   ENDMETHOD.
 
   METHOD get_logger_internal.
