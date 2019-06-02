@@ -3,31 +3,24 @@
 "! Inherit from this class and implement <em>entry_internal</em> and ideally overwrite
 "! <em>entry_msg_internal</em> for the logging logic.
 "! </p>
-class ZCL_ALOG_MSG_LOGGER_BASE definition
-  public
-  inheriting from ZCL_ALOG_LOGGER_BASE
-  abstract
-  create public .
+CLASS zcl_alog_msg_logger_base DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_alog_logger_base
+  ABSTRACT
+  CREATE PUBLIC.
 
-public section.
-
-  interfaces ZIF_ALOG_BAPIRET_LOGGER .
-  interfaces ZIF_ALOG_MSG_LOGGER .
-
-  aliases DEBUG_MSG
-    for ZIF_ALOG_MSG_LOGGER~DEBUG_MSG .
-  aliases ENTRY_BAPIRET
-    for ZIF_ALOG_BAPIRET_LOGGER~ENTRY_BAPIRET .
-  aliases ENTRY_BAPIRET_TABLE
-    for ZIF_ALOG_BAPIRET_LOGGER~ENTRY_BAPIRET_TABLE .
-  aliases ENTRY_MSG
-    for ZIF_ALOG_MSG_LOGGER~ENTRY_MSG .
-  aliases ERROR_MSG
-    for ZIF_ALOG_MSG_LOGGER~ERROR_MSG .
-  aliases INFO_MSG
-    for ZIF_ALOG_MSG_LOGGER~INFO_MSG .
-  aliases WARNING_MSG
-    for ZIF_ALOG_MSG_LOGGER~WARNING_MSG .
+  PUBLIC SECTION.
+    INTERFACES:
+      zif_alog_bapiret_logger,
+      zif_alog_msg_logger.
+    ALIASES:
+     debug_msg FOR zif_alog_msg_logger~debug_msg,
+     entry_bapiret FOR zif_alog_bapiret_logger~entry_bapiret,
+     entry_bapiret_table FOR zif_alog_bapiret_logger~entry_bapiret_table,
+     entry_msg FOR zif_alog_msg_logger~entry_msg,
+     error_msg FOR zif_alog_msg_logger~error_msg,
+     info_msg FOR zif_alog_msg_logger~info_msg,
+     warning_msg FOR zif_alog_msg_logger~warning_msg.
   PROTECTED SECTION.
     METHODS:
       inform_attached_loggers REDEFINITION,
@@ -73,16 +66,14 @@ public section.
                                    VALUE(iv_msgv4) TYPE syst_msgv DEFAULT sy-msgv4
                          RAISING   zcx_alog_logging_failed
                                    zcx_alog_unsupported_msgty.
-private section.
-
-  data MV_BLOCK_ENTRY_INFORM type ABAP_BOOL .
+  PRIVATE SECTION.
+    DATA:
+      mv_block_entry_inform TYPE abap_bool .
 ENDCLASS.
 
 
 
-CLASS ZCL_ALOG_MSG_LOGGER_BASE IMPLEMENTATION.
-
-
+CLASS zcl_alog_msg_logger_base IMPLEMENTATION.
   METHOD entry_msg_internal.
     " Default implementation just redirects to entry( )
     MESSAGE ID iv_msgid TYPE iv_msgty NUMBER iv_msgno

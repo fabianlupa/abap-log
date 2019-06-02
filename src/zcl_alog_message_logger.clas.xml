@@ -4,10 +4,8 @@
   <asx:values>
    <VSEOCLASS>
     <CLSNAME>ZCL_ALOG_MESSAGE_LOGGER</CLSNAME>
-    <VERSION>1</VERSION>
     <LANGU>E</LANGU>
     <DESCRIPT>Logger using MESSAGE statements for batch processing</DESCRIPT>
-    <EXPOSURE>2</EXPOSURE>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

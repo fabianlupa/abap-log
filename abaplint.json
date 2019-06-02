@@ -1,4 +1,7 @@
 {
+   "global":{
+     "applyUnspecifiedRules":false
+   },
    "rules":{
       "7bit_ascii":{
          "enabled":true

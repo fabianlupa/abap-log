@@ -4,7 +4,6 @@
   <asx:values>
    <VSEOINTERF>
     <CLSNAME>ZIF_ALOG_BAPIRET_LOGGER</CLSNAME>
-    <VERSION>1</VERSION>
     <LANGU>E</LANGU>
     <DESCRIPT>Logger with BAPI-return support</DESCRIPT>
     <EXPOSURE>2</EXPOSURE>
