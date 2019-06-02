@@ -1,6 +1,6 @@
 {
    "global":{
-     "applyUnspecifiedRules":false,
+     "applyUnspecifiedRules":false
    },
    "rules":{
       "7bit_ascii":{
