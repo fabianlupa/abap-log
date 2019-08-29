@@ -9,34 +9,34 @@
 "! severe performance problems. If that is a concern supply <em>IV_OUTPUT_IMMEDIATELY</em> in the
 "! constructor with <em>ABAP_FALSE</em>.
 "! </p>
-class ZCL_ALOG_PROGRESS_REP_LOGGER definition
-  public
-  inheriting from ZCL_ALOG_MSG_LOGGER_BASE
-  create public .
+CLASS zcl_alog_progress_rep_logger DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_alog_msg_logger_base
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-      "! @parameter iv_output_immediately | Output log entries immediately / always
-  methods CONSTRUCTOR
-    importing
-      !IV_OUTPUT_IMMEDIATELY type ABAP_BOOL default ABAP_TRUE .
-  methods SET_TOTAL_ENTRIES
-    importing
-      !IV_TOTAL_ENTRIES type INT4 .
-  methods SET_ACTUAL_ENTRIES
-    importing
-      !IV_ACTUAL_ENTRIES type INT4 .
-protected section.
+    "! @parameter iv_output_immediately | Output log entries immediately / always
+    METHODS constructor
+      IMPORTING
+        !iv_output_immediately TYPE abap_bool DEFAULT abap_true .
+    METHODS set_total_entries
+      IMPORTING
+        !iv_total_entries TYPE int4 .
+    METHODS set_actual_entries
+      IMPORTING
+        !iv_actual_entries TYPE int4 .
+  PROTECTED SECTION.
 
-  methods ENTRY_INTERNAL
-    redefinition .
-  methods ENTRY_MSG_INTERNAL
-    redefinition .
-private section.
+    METHODS entry_internal
+         REDEFINITION .
+    METHODS entry_msg_internal
+         REDEFINITION .
+  PRIVATE SECTION.
 
-  data MV_OUTPUT_IMMEDIATELY type ABAP_BOOL .
-  data MV_TOTAL_ENTRIES type INT4 .
-  data MV_ACTUAL_ENTRIES type INT4 .
+    DATA mv_output_immediately TYPE abap_bool .
+    DATA mv_total_entries TYPE int4 .
+    DATA mv_actual_entries TYPE int4 .
 ENDCLASS.
 
 
@@ -48,8 +48,8 @@ CLASS ZCL_ALOG_PROGRESS_REP_LOGGER IMPLEMENTATION.
     super->constructor( ).
     mv_output_immediately = iv_output_immediately.
 * EP Set actual and default maxinum counter
-    SET_actual_ENTRIES( 1 ).
-    SET_TOTAL_ENTRIES( 100 ).
+    set_actual_entries( 1 ).
+    set_total_entries( 100 ).
 
   ENDMETHOD.
 
@@ -60,8 +60,8 @@ CLASS ZCL_ALOG_PROGRESS_REP_LOGGER IMPLEMENTATION.
 * EP use maximun message
 *                                              i_processed          = 1
 *                                              i_total              = 100 ).
-                                              i_processed          = MV_ACTUAL_ENTRIES
-                                              i_total              = MV_TOTAL_ENTRIES ).
+                                              i_processed          = mv_actual_entries
+                                              i_total              = mv_total_entries ).
   ENDMETHOD.
 
 
@@ -78,12 +78,12 @@ CLASS ZCL_ALOG_PROGRESS_REP_LOGGER IMPLEMENTATION.
   ENDMETHOD.
 
 
-  method SET_ACTUAL_ENTRIES.
-    mv_actual_ENTRIES = iv_actual_ENTRIES.
-  endmethod.
+  METHOD set_actual_entries.
+    mv_actual_entries = iv_actual_entries.
+  ENDMETHOD.
 
 
-  method SET_TOTAL_ENTRIES.
-    mv_TOTAL_ENTRIES = iv_TOTAL_ENTRIES.
-  endmethod.
+  METHOD set_total_entries.
+    mv_total_entries = iv_total_entries.
+  ENDMETHOD.
 ENDCLASS.
