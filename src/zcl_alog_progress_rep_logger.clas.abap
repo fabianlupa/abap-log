@@ -12,35 +12,55 @@
 CLASS zcl_alog_progress_rep_logger DEFINITION
   PUBLIC
   INHERITING FROM zcl_alog_msg_logger_base
-  CREATE PUBLIC.
+  CREATE PUBLIC .
 
   PUBLIC SECTION.
-    METHODS:
-      "! @parameter iv_output_immediately | Output log entries immediately / always
-      constructor IMPORTING iv_output_immediately TYPE abap_bool DEFAULT abap_true.
+
+    "! @parameter iv_output_immediately | Output log entries immediately / always
+    METHODS constructor
+      IMPORTING
+        !iv_output_immediately TYPE abap_bool DEFAULT abap_true .
+    METHODS set_total_entries
+      IMPORTING
+        !iv_total_entries TYPE int4 .
+    METHODS set_actual_entries
+      IMPORTING
+        !iv_actual_entries TYPE int4 .
   PROTECTED SECTION.
-    METHODS:
-      entry_internal REDEFINITION,
-      entry_msg_internal REDEFINITION.
+
+    METHODS entry_internal
+         REDEFINITION .
+    METHODS entry_msg_internal
+         REDEFINITION .
   PRIVATE SECTION.
-    DATA:
-      mv_output_immediately TYPE abap_bool.
+
+    DATA mv_output_immediately TYPE abap_bool .
+    DATA mv_total_entries TYPE int4 .
+    DATA mv_actual_entries TYPE int4 .
 ENDCLASS.
 
 
 
-CLASS zcl_alog_progress_rep_logger IMPLEMENTATION.
+CLASS ZCL_ALOG_PROGRESS_REP_LOGGER IMPLEMENTATION.
+
+
   METHOD constructor.
     super->constructor( ).
     mv_output_immediately = iv_output_immediately.
+* Set default actual and total counter
+    set_actual_entries( 1 ).
+    set_total_entries( 100 ).
+
   ENDMETHOD.
+
 
   METHOD entry_internal.
     cl_progress_indicator=>progress_indicate( i_text               = iv_text
                                               i_output_immediately = mv_output_immediately
-                                              i_processed          = 1
-                                              i_total              = 100 ).
+                                              i_processed          = mv_actual_entries
+                                              i_total              = mv_total_entries ).
   ENDMETHOD.
+
 
   METHOD entry_msg_internal.
     cl_progress_indicator=>progress_indicate( i_msgid              = iv_msgid
@@ -50,7 +70,17 @@ CLASS zcl_alog_progress_rep_logger IMPLEMENTATION.
                                               i_msgv3              = iv_msgv3
                                               i_msgv4              = iv_msgv4
                                               i_output_immediately = mv_output_immediately
-                                              i_processed          = 1
-                                              i_total              = 100 ).
+                                              i_processed          = mv_actual_entries
+                                              i_total              = mv_total_entries ).
+  ENDMETHOD.
+
+
+  METHOD set_actual_entries.
+    mv_actual_entries = iv_actual_entries.
+  ENDMETHOD.
+
+
+  METHOD set_total_entries.
+    mv_total_entries = iv_total_entries.
   ENDMETHOD.
 ENDCLASS.
