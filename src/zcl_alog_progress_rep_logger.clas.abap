@@ -57,9 +57,6 @@ CLASS ZCL_ALOG_PROGRESS_REP_LOGGER IMPLEMENTATION.
   METHOD entry_internal.
     cl_progress_indicator=>progress_indicate( i_text               = iv_text
                                               i_output_immediately = mv_output_immediately
-* EP use maximun message
-*                                              i_processed          = 1
-*                                              i_total              = 100 ).
                                               i_processed          = mv_actual_entries
                                               i_total              = mv_total_entries ).
   ENDMETHOD.
