@@ -47,7 +47,7 @@ CLASS ZCL_ALOG_PROGRESS_REP_LOGGER IMPLEMENTATION.
   METHOD constructor.
     super->constructor( ).
     mv_output_immediately = iv_output_immediately.
-* EP Set actual and default maxinum counter
+* Set default actual and total counter
     set_actual_entries( 1 ).
     set_total_entries( 100 ).
 
@@ -70,8 +70,8 @@ CLASS ZCL_ALOG_PROGRESS_REP_LOGGER IMPLEMENTATION.
                                               i_msgv3              = iv_msgv3
                                               i_msgv4              = iv_msgv4
                                               i_output_immediately = mv_output_immediately
-                                              i_processed          = 1
-                                              i_total              = 100 ).
+                                              i_processed          = mv_actual_entries
+                                              i_total              = mv_total_entries ).
   ENDMETHOD.
 
 
